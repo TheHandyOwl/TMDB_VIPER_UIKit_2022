@@ -49,6 +49,7 @@ struct Constants {
         struct MovieList {
             
             static let nibName = "MovieListView"
+            static let searchBarPlaceholder = "Search movie title here..."
             static let title = "Movies"
             
             struct MovieCell {

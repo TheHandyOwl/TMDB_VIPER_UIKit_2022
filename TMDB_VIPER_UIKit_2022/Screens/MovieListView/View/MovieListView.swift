@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
 import UIKit
 
 
@@ -23,26 +25,70 @@ protocol MovieListViewProtocol: AnyObject {
 
 
 // MARK: - MovieListView
-class MovieListView: UIViewController {
+final class MovieListView: UIViewController {
     
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var tableView: UITableView!
     
-    var movies: [Movie] = [] {
+    // MARK: Properties
+    var presenter: MovieListPresenterProtocol?
+    
+    private var disposeBag = DisposeBag()
+    
+    private var filteredMovies: [Movie] = [] {
+        didSet {
+            filteredMovies.sort { $0.title < $1.title }
+        }
+    }
+    
+    private var movies: [Movie] = [] {
         didSet {
             movies.sort { $0.title < $1.title }
         }
     }
     
-    // MARK: Properties
-    var presenter: MovieListPresenterProtocol?
-
+    private var searchBarFilterString = ""
+    
+    private lazy var searchController: UISearchController = {
+        ControllerFactory.shared.createUISearchController(placeholderText: Constants.Views.MovieList.searchBarPlaceholder)
+    }()
+    
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configSearchControllerAndDelegate()
         registerCell()
         presenter?.viewDidLoad()
+    }
+    
+    private func configSearchControllerAndDelegate() {
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
+        
+        let searchBar = searchController.searchBar
+        tableView.tableHeaderView = searchBar
+        tableView.contentOffset = CGPoint(x: 0, y: searchBar.frame.height)
+        
+        searchBar.rx.text
+            .orEmpty
+            .distinctUntilChanged()
+            .subscribe { titleString in
+                self.searchBarFilterString = titleString.count > 0 ? titleString : ""
+                self.filteredMovies = self.movies.filter { movie in
+                    movie.title.lowercased().contains(titleString.lowercased()) == true
+                }
+                self.reloadTable()
+            } onError: { error in
+                print("\(Constants.Strings.errorLiteral): \(error.localizedDescription)")
+            }
+            .disposed(by: disposeBag)
+        
+    }
+    
+    private func getMoviesOrFilteredMovies() -> [Movie] {
+        let isFiltering = searchController.isActive && searchBarFilterString != ""
+        return isFiltering ? filteredMovies: movies
     }
     
     private func registerCell() {
@@ -50,21 +96,46 @@ class MovieListView: UIViewController {
         tableView.register(cellNib, forCellReuseIdentifier: Constants.Views.MovieList.MovieCell.cellID)
     }
     
+    private func reloadTable() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+}
+
+
+// MARK: - UISearchControllerDelegate
+extension MovieListView: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchController.isActive = false
+        reloadTable()
+    }
+    
+}
+
+
+// MARK: - UISearchControllerDelegate
+extension MovieListView: UISearchControllerDelegate {
 }
 
 
 // MARK: - UITableViewDataSource
 extension MovieListView: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        let items = getMoviesOrFilteredMovies().count
+        return items
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = indexPath.row
-        let item = movies[row]
+        let item = getMoviesOrFilteredMovies()[row]
         
         // Fetching more pages?
-        if ( (row >= movies.count - 7) && (activityIndicator.isHidden) ) {
+        let fetchMovies = (row >= movies.count - 7) && searchBarFilterString == "" && activityIndicator.isHidden
+        if fetchMovies {
             presenter?.getMovies()
         }
         
@@ -84,7 +155,7 @@ extension MovieListView: UITableViewDataSource {
 extension MovieListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row
-        let item = movies[row]
+        let item = getMoviesOrFilteredMovies()[row]
         
         print("Item: \(item.title)")
     }
@@ -96,9 +167,7 @@ extension MovieListView: MovieListViewProtocol {
     
     func refreshList(movies: [Movie]) {
         self.movies += movies
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        reloadTable()
     }
     
     func setupUI(viewTitle: String) {
