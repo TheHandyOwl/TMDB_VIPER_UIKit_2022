@@ -17,12 +17,6 @@ protocol MovieListMockDataManagerInputProtocol: AnyObject {
 }
 
 
-// MARK: - protocol MovieListMockDataManagerOutputProtocol
-protocol MovieListMockDataManagerOutputProtocol: AnyObject {
-    // MOCKDATAMANAGER -> INTERACTOR
-}
-
-
 // MARK: - MovieListMockDataManagerInputProtocol
 class MovieListMockDataManager: MovieListMockDataManagerInputProtocol {
     

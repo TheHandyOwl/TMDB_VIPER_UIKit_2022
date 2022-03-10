@@ -18,12 +18,6 @@ protocol MovieListRemoteDataManagerInputProtocol: AnyObject {
 }
 
 
-// MARK: - protocol MovieListRemoteDataManagerOutputProtocol
-protocol MovieListRemoteDataManagerOutputProtocol: AnyObject {
-    // REMOTEDATAMANAGER -> INTERACTOR
-}
-
-
 // MARK: - MovieListRemoteDataManagerInputProtocol
 class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
     

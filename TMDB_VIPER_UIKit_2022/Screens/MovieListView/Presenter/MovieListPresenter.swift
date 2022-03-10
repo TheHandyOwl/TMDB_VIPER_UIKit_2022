@@ -21,6 +21,12 @@ protocol MovieListPresenterProtocol: AnyObject {
 }
 
 
+// MARK: - protocol MovieListInteractorOutputProtocol
+protocol MovieListInteractorOutputProtocol: AnyObject {
+    // INTERACTOR -> PRESENTER
+}
+
+
 // MARK: - MovieListPresenter
 class MovieListPresenter  {
     
