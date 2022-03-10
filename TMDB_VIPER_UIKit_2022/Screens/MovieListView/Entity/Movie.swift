@@ -10,8 +10,17 @@ import Foundation
 
 // MARK: - Movie
 struct Movie: Codable {
+    
     let movieID: Int
     let title: String
     let synopsis: String
     let image: String
+    
+    init(movieID: Int, title: String, synopsis: String, image: String) {
+        self.movieID = movieID
+        self.title = title
+        self.synopsis = synopsis
+        self.image = image
+    }
+    
 }

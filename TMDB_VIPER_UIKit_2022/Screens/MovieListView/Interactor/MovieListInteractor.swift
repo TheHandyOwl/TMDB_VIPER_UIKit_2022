@@ -17,7 +17,7 @@ protocol MovieListInteractorInputProtocol: AnyObject {
     var mockDatamanager: MovieListMockDataManagerInputProtocol? { get set }
     var remoteDatamanager: MovieListRemoteDataManagerInputProtocol? { get set }
     
-    func getMovies(successHandler: (([Movie]) -> ()), errorHandler: ((String) -> ()))
+    func getPopularMovies(success: @escaping (([Movie]) -> ()), failure: @escaping ((NetworkErrors) -> ()))
 }
 
 
@@ -35,6 +35,13 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
     var localDatamanager: MovieListLocalDataManagerInputProtocol?
     var mockDatamanager: MovieListMockDataManagerInputProtocol?
     var remoteDatamanager: MovieListRemoteDataManagerInputProtocol?
+    
+    private func mapMoviesResponseToMovies(moviesResponse: [MovieResponse]) -> [Movie] {
+        let movies = moviesResponse.map {
+            Movie(movieID: $0.id, title: $0.title, synopsis: $0.overview, image: $0.posterPath)
+        }
+        return movies
+    }
 
 }
 
@@ -42,8 +49,14 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
 // MARK: - MovieListRemoteDataManagerOutputProtocol
 extension MovieListInteractor: MovieListRemoteDataManagerOutputProtocol {
 
-    func getMovies(successHandler: (([Movie]) -> ()), errorHandler: ((String) -> ())) {
-        mockDatamanager?.getMovies(successHandler: successHandler, errorHandler: errorHandler)
+    func getPopularMovies(success: @escaping (([Movie]) -> ()), failure: @escaping ((NetworkErrors) -> ())) {
+        //mockDatamanager?.getPopularMovies(success: success, failure: failure)
+        remoteDatamanager?.getPopularMovies(success: { moviesResponse in
+            let movies = self.mapMoviesResponseToMovies(moviesResponse: moviesResponse)
+            success(movies)
+        }, failure: { networkError in
+            failure(networkError)
+        })
     }
 
 }

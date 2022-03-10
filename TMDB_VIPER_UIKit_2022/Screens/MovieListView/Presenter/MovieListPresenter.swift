@@ -32,11 +32,11 @@ class MovieListPresenter  {
         view?.startActivity()
         
         DispatchQueue.global().async {
-            self.interactor?.getMovies(successHandler: { movies in
+            self.interactor?.getPopularMovies(success: { movies in
                 self.view?.refreshList(movies: movies)
                 self.view?.stopActivity()
-            }, errorHandler: { error in
-                print("\(Constants.Strings.errorLiteral): \(error)")
+            }, failure: { networkError in
+                print("\(Constants.Strings.errorLiteral): \(networkError)")
             })
         }
     }

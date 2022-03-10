@@ -26,15 +26,22 @@ class MovieListCellView: UITableViewCell {
     }
     
     private func cleanCell() {
-        movieImage.image = UIImage(systemName: Constants.Views.MovieList.MovieCell.placeholderImage)
+        movieImage.image = nil
         titleLabel.text = ""
         synopsisLabel.text = ""
     }
     
-    func configureCell(movieTitle: String, movieSinopsis: String) {
-        movieImage.image = UIImage(systemName: Constants.Views.MovieList.MovieCell.placeholderImage)
+    func configureCell(movieTitle: String, movieSinopsis: String, image: String) {
+        cleanCell()
+        
         titleLabel.text = movieTitle
         synopsisLabel.text = movieSinopsis
+        
+        if let placeholderImage = UIImage(systemName: Constants.Views.MovieList.MovieCell.placeholderImage) {
+            movieImage.getImage(sufixUrl: image, placeHolderImage: placeholderImage)
+        } else {
+            movieImage.getImage(sufixUrl: image)
+        }
     }
     
 }

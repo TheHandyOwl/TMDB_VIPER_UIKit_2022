@@ -60,7 +60,7 @@ extension MovieListView: UITableViewDataSource {
         let item = movies[row]
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Views.MovieList.MovieCell.cellID) as? MovieListCellView {
-            cell.configureCell(movieTitle: item.title, movieSinopsis: item.synopsis)
+            cell.configureCell(movieTitle: item.title, movieSinopsis: item.synopsis, image: item.image)
             return cell
         }
         
