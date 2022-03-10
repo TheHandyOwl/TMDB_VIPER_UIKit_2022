@@ -9,21 +9,41 @@
 /* Begin PBXBuildFile section */
 		0706EC4E27DA08B700C7951A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706EC4D27DA08B700C7951A /* AppDelegate.swift */; };
 		0706EC5027DA08B700C7951A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706EC4F27DA08B700C7951A /* SceneDelegate.swift */; };
-		0706EC5227DA08B700C7951A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706EC5127DA08B700C7951A /* ViewController.swift */; };
-		0706EC5527DA08B700C7951A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0706EC5327DA08B700C7951A /* Main.storyboard */; };
 		0706EC5727DA08B900C7951A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0706EC5627DA08B900C7951A /* Assets.xcassets */; };
 		0706EC5A27DA08B900C7951A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0706EC5827DA08B900C7951A /* LaunchScreen.storyboard */; };
+		0706EC6927DA0AA000C7951A /* MovieListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706EC6227DA0AA000C7951A /* MovieListPresenter.swift */; };
+		0706EC6A27DA0AA000C7951A /* MovieListLocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706EC6327DA0AA000C7951A /* MovieListLocalDataManager.swift */; };
+		0706EC6C27DA0AA000C7951A /* MovieListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706EC6527DA0AA000C7951A /* MovieListInteractor.swift */; };
+		0706EC6D27DA0AA000C7951A /* MovieListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706EC6627DA0AA000C7951A /* MovieListView.swift */; };
+		0706EC6E27DA0AA000C7951A /* MovieListRemoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706EC6727DA0AA000C7951A /* MovieListRemoteDataManager.swift */; };
+		0706EC6F27DA0AA000C7951A /* MovieListWireFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706EC6827DA0AA000C7951A /* MovieListWireFrame.swift */; };
+		0706EC7727DA0B0500C7951A /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706EC7627DA0B0500C7951A /* Movie.swift */; };
+		0706EC7A27DA0BD700C7951A /* MovieListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0706EC7927DA0BD700C7951A /* MovieListView.xib */; };
+		0706EC9427DA167400C7951A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706EC9327DA167400C7951A /* Constants.swift */; };
+		0706EC9627DA197100C7951A /* MovieListMockDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706EC9527DA197100C7951A /* MovieListMockDataManager.swift */; };
+		0706EC9A27DA2BE600C7951A /* MovieListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706EC9827DA2BE600C7951A /* MovieListCellView.swift */; };
+		0706EC9B27DA2BE600C7951A /* MovieListCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0706EC9927DA2BE600C7951A /* MovieListCellView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0706EC4A27DA08B700C7951A /* TMDB_VIPER_UIKit_2022.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMDB_VIPER_UIKit_2022.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0706EC4D27DA08B700C7951A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0706EC4F27DA08B700C7951A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0706EC5127DA08B700C7951A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0706EC5427DA08B700C7951A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0706EC5627DA08B900C7951A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0706EC5927DA08B900C7951A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0706EC5B27DA08B900C7951A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0706EC6227DA0AA000C7951A /* MovieListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListPresenter.swift; sourceTree = "<group>"; };
+		0706EC6327DA0AA000C7951A /* MovieListLocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListLocalDataManager.swift; sourceTree = "<group>"; };
+		0706EC6527DA0AA000C7951A /* MovieListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListInteractor.swift; sourceTree = "<group>"; };
+		0706EC6627DA0AA000C7951A /* MovieListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListView.swift; sourceTree = "<group>"; };
+		0706EC6727DA0AA000C7951A /* MovieListRemoteDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListRemoteDataManager.swift; sourceTree = "<group>"; };
+		0706EC6827DA0AA000C7951A /* MovieListWireFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListWireFrame.swift; sourceTree = "<group>"; };
+		0706EC7627DA0B0500C7951A /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		0706EC7927DA0BD700C7951A /* MovieListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieListView.xib; sourceTree = "<group>"; };
+		0706EC9327DA167400C7951A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0706EC9527DA197100C7951A /* MovieListMockDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListMockDataManager.swift; sourceTree = "<group>"; };
+		0706EC9827DA2BE600C7951A /* MovieListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCellView.swift; sourceTree = "<group>"; };
+		0706EC9927DA2BE600C7951A /* MovieListCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieListCellView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +78,95 @@
 			children = (
 				0706EC4D27DA08B700C7951A /* AppDelegate.swift */,
 				0706EC4F27DA08B700C7951A /* SceneDelegate.swift */,
-				0706EC5127DA08B700C7951A /* ViewController.swift */,
-				0706EC5327DA08B700C7951A /* Main.storyboard */,
+				0706EC7827DA0B3A00C7951A /* Screens */,
+				0706EC9227DA165700C7951A /* Resources */,
 				0706EC5627DA08B900C7951A /* Assets.xcassets */,
 				0706EC5827DA08B900C7951A /* LaunchScreen.storyboard */,
 				0706EC5B27DA08B900C7951A /* Info.plist */,
 			);
 			path = TMDB_VIPER_UIKit_2022;
+			sourceTree = "<group>";
+		};
+		0706EC6127DA0A0100C7951A /* MovieListView */ = {
+			isa = PBXGroup;
+			children = (
+				0706EC7427DA0AD000C7951A /* View */,
+				0706EC7327DA0ACA00C7951A /* Interactor */,
+				0706EC7227DA0AC400C7951A /* Presenter */,
+				0706EC7527DA0AE700C7951A /* Entity */,
+				0706EC7027DA0AA600C7951A /* Router */,
+				0706EC7127DA0AB600C7951A /* DataManager */,
+			);
+			path = MovieListView;
+			sourceTree = "<group>";
+		};
+		0706EC7027DA0AA600C7951A /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				0706EC6827DA0AA000C7951A /* MovieListWireFrame.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		0706EC7127DA0AB600C7951A /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				0706EC6327DA0AA000C7951A /* MovieListLocalDataManager.swift */,
+				0706EC6727DA0AA000C7951A /* MovieListRemoteDataManager.swift */,
+				0706EC9527DA197100C7951A /* MovieListMockDataManager.swift */,
+			);
+			path = DataManager;
+			sourceTree = "<group>";
+		};
+		0706EC7227DA0AC400C7951A /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				0706EC6227DA0AA000C7951A /* MovieListPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		0706EC7327DA0ACA00C7951A /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				0706EC6527DA0AA000C7951A /* MovieListInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		0706EC7427DA0AD000C7951A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0706EC6627DA0AA000C7951A /* MovieListView.swift */,
+				0706EC7927DA0BD700C7951A /* MovieListView.xib */,
+				0706EC9827DA2BE600C7951A /* MovieListCellView.swift */,
+				0706EC9927DA2BE600C7951A /* MovieListCellView.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0706EC7527DA0AE700C7951A /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				0706EC7627DA0B0500C7951A /* Movie.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		0706EC7827DA0B3A00C7951A /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				0706EC6127DA0A0100C7951A /* MovieListView */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		0706EC9227DA165700C7951A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0706EC9327DA167400C7951A /* Constants.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,8 +228,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0706EC5A27DA08B900C7951A /* LaunchScreen.storyboard in Resources */,
+				0706EC9B27DA2BE600C7951A /* MovieListCellView.xib in Resources */,
+				0706EC7A27DA0BD700C7951A /* MovieListView.xib in Resources */,
 				0706EC5727DA08B900C7951A /* Assets.xcassets in Resources */,
-				0706EC5527DA08B700C7951A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,8 +241,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0706EC5227DA08B700C7951A /* ViewController.swift in Sources */,
+				0706EC9A27DA2BE600C7951A /* MovieListCellView.swift in Sources */,
+				0706EC9627DA197100C7951A /* MovieListMockDataManager.swift in Sources */,
+				0706EC6E27DA0AA000C7951A /* MovieListRemoteDataManager.swift in Sources */,
+				0706EC9427DA167400C7951A /* Constants.swift in Sources */,
 				0706EC4E27DA08B700C7951A /* AppDelegate.swift in Sources */,
+				0706EC6D27DA0AA000C7951A /* MovieListView.swift in Sources */,
+				0706EC6C27DA0AA000C7951A /* MovieListInteractor.swift in Sources */,
+				0706EC7727DA0B0500C7951A /* Movie.swift in Sources */,
+				0706EC6927DA0AA000C7951A /* MovieListPresenter.swift in Sources */,
+				0706EC6F27DA0AA000C7951A /* MovieListWireFrame.swift in Sources */,
+				0706EC6A27DA0AA000C7951A /* MovieListLocalDataManager.swift in Sources */,
 				0706EC5027DA08B700C7951A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,14 +259,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		0706EC5327DA08B700C7951A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0706EC5427DA08B700C7951A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		0706EC5827DA08B900C7951A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -293,7 +397,6 @@
 				INFOPLIST_FILE = TMDB_VIPER_UIKit_2022/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -320,7 +423,6 @@
 				INFOPLIST_FILE = TMDB_VIPER_UIKit_2022/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

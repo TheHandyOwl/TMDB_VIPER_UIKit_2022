@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieListCellViewID" rowHeight="208" id="KGk-i7-Jjw" customClass="MovieListCellView" customModule="TMDB_VIPER_UIKit_2022" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="208"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="208"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DSN-lq-aYI">
+                        <rect key="frame" x="20" y="20" width="100" height="168"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="RUt-du-JdS"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyU-0M-EO6">
+                        <rect key="frame" x="128" y="20" width="172" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title ..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QlO-Ro-Lgw">
+                        <rect key="frame" x="128" y="48.5" width="172" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Synopsis:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzw-i5-3LN">
+                        <rect key="frame" x="128" y="73.5" width="172" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Synopsis ..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="96u-YP-PTC">
+                        <rect key="frame" x="128" y="102" width="172" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="96u-YP-PTC" firstAttribute="leading" secondItem="DSN-lq-aYI" secondAttribute="trailing" constant="8" id="2sA-fl-LPI"/>
+                    <constraint firstItem="96u-YP-PTC" firstAttribute="top" secondItem="tzw-i5-3LN" secondAttribute="bottom" constant="8" id="55k-Lo-qYj"/>
+                    <constraint firstAttribute="bottom" secondItem="DSN-lq-aYI" secondAttribute="bottom" constant="20" id="8qC-0F-HyL"/>
+                    <constraint firstItem="xyU-0M-EO6" firstAttribute="leading" secondItem="DSN-lq-aYI" secondAttribute="trailing" constant="8" id="CcY-0v-6OQ"/>
+                    <constraint firstItem="tzw-i5-3LN" firstAttribute="leading" secondItem="DSN-lq-aYI" secondAttribute="trailing" constant="8" id="Uku-EN-773"/>
+                    <constraint firstItem="xyU-0M-EO6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="VUY-s2-aMh"/>
+                    <constraint firstItem="DSN-lq-aYI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="W8A-2n-1gb"/>
+                    <constraint firstItem="QlO-Ro-Lgw" firstAttribute="top" secondItem="xyU-0M-EO6" secondAttribute="bottom" constant="8" id="ZGl-1G-yM1"/>
+                    <constraint firstAttribute="trailing" secondItem="xyU-0M-EO6" secondAttribute="trailing" constant="20" id="b92-Tg-jJz"/>
+                    <constraint firstAttribute="trailing" secondItem="tzw-i5-3LN" secondAttribute="trailing" constant="20" id="buI-in-H1b"/>
+                    <constraint firstItem="QlO-Ro-Lgw" firstAttribute="leading" secondItem="DSN-lq-aYI" secondAttribute="trailing" constant="8" id="kQP-qN-ohv"/>
+                    <constraint firstItem="DSN-lq-aYI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="m2W-61-nz4"/>
+                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="96u-YP-PTC" secondAttribute="bottom" constant="20" id="mg1-b7-Lxa"/>
+                    <constraint firstAttribute="trailing" secondItem="QlO-Ro-Lgw" secondAttribute="trailing" constant="20" id="oTB-Km-N65"/>
+                    <constraint firstAttribute="trailing" secondItem="96u-YP-PTC" secondAttribute="trailing" constant="20" id="sw2-dR-Zz8"/>
+                    <constraint firstItem="tzw-i5-3LN" firstAttribute="top" secondItem="QlO-Ro-Lgw" secondAttribute="bottom" constant="8" id="xAX-W8-5vj"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="movieImage" destination="DSN-lq-aYI" id="ovk-Vn-Enc"/>
+                <outlet property="synopsisLabel" destination="96u-YP-PTC" id="P5k-nY-BU5"/>
+                <outlet property="synopsisTagLabel" destination="tzw-i5-3LN" id="77Y-ms-7oK"/>
+                <outlet property="titleLabel" destination="QlO-Ro-Lgw" id="0um-RE-eYF"/>
+                <outlet property="titleTagLabel" destination="xyU-0M-EO6" id="Nfn-0A-XMO"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="91.741071428571431"/>
+        </tableViewCell>
+    </objects>
+</document>
