@@ -23,7 +23,7 @@ protocol MovieListInteractorInputProtocol: AnyObject {
 
 // MARK: - protocol MovieListInteractorOutputProtocol
 protocol MovieListInteractorOutputProtocol: AnyObject {
-// INTERACTOR -> PRESENTER
+    // INTERACTOR -> PRESENTER
 }
 
 
@@ -42,13 +42,7 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
         }
         return movies
     }
-
-}
-
-
-// MARK: - MovieListRemoteDataManagerOutputProtocol
-extension MovieListInteractor: MovieListRemoteDataManagerOutputProtocol {
-
+    
     func getPopularMovies(success: @escaping (([Movie]) -> ()), failure: @escaping ((NetworkErrors) -> ())) {
         //mockDatamanager?.getPopularMovies(success: success, failure: failure)
         remoteDatamanager?.getPopularMovies(success: { moviesResponse in
@@ -59,4 +53,9 @@ extension MovieListInteractor: MovieListRemoteDataManagerOutputProtocol {
         })
     }
 
+}
+
+
+// MARK: - MovieListRemoteDataManagerOutputProtocol
+extension MovieListInteractor: MovieListRemoteDataManagerOutputProtocol {
 }

@@ -14,6 +14,8 @@ enum NetworkErrors: Error {
     case decodingImage
     case decodingJSONError
     case networkError
+    case noRequest
+    case pageLimitReached
     case responseError
     case statusCode401UnauthorizedError
     case statusCode403ForbiddenError
