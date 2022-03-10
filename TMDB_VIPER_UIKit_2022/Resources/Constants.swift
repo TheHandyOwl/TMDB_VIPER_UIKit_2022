@@ -17,6 +17,10 @@ struct Constants {
         
         static let apiKeyParam = "?api_key="
         static let apiKeyValue = "d535b316cd84b2899e503444201247c1"
+        static let moviesInitialPage = -1
+        static let moviesFirstPage = 1
+        static let moviesIncrementPage = 1
+        static let moviesPageLimit = 500
         
         struct URL {
             static let urlMainSite = "https://api.themoviedb.org/"
@@ -25,6 +29,10 @@ struct Constants {
         
         struct Endpoints {
             static let urlEndpointListMovies = "3/movie/popular"
+        }
+        
+        struct Params {
+            static let paramPage = "&page="
         }
         
     }

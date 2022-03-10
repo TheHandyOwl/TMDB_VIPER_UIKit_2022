@@ -28,7 +28,11 @@ class MovieListView: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     
-    var movies: [Movie] = []
+    var movies: [Movie] = [] {
+        didSet {
+            movies.sort { $0.title < $1.title }
+        }
+    }
     
     // MARK: Properties
     var presenter: MovieListPresenterProtocol?
@@ -59,6 +63,11 @@ extension MovieListView: UITableViewDataSource {
         let row = indexPath.row
         let item = movies[row]
         
+        // Fetching more pages?
+        if ( (row >= movies.count - 7) && (activityIndicator.isHidden) ) {
+            presenter?.getMovies()
+        }
+        
         if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Views.MovieList.MovieCell.cellID) as? MovieListCellView {
             cell.configureCell(movieTitle: item.title, movieSinopsis: item.synopsis, image: item.image)
             return cell
@@ -86,7 +95,7 @@ extension MovieListView: UITableViewDelegate {
 extension MovieListView: MovieListViewProtocol {
     
     func refreshList(movies: [Movie]) {
-        self.movies = movies
+        self.movies += movies
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

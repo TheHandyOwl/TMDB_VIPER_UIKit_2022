@@ -30,7 +30,7 @@ class MovieListWireFrame: MovieListWireFrameProtocol {
 
         if let view = navController.children.first as? MovieListView {
             let presenter: MovieListPresenterProtocol & MovieListInteractorOutputProtocol = MovieListPresenter()
-            let interactor: MovieListInteractorInputProtocol & MovieListRemoteDataManagerOutputProtocol = MovieListInteractor()
+            let interactor: MovieListInteractorInputProtocol & MovieListLocalDataManagerOutputProtocol& MovieListMockDataManagerOutputProtocol& MovieListRemoteDataManagerOutputProtocol = MovieListInteractor()
             let localDataManager: MovieListLocalDataManagerInputProtocol = MovieListLocalDataManager()
             let mockDataManager: MovieListMockDataManagerInputProtocol = MovieListMockDataManager()
             let remoteDataManager: MovieListRemoteDataManagerInputProtocol = MovieListRemoteDataManager()

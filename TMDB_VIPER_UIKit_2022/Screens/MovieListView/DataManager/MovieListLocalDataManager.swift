@@ -9,12 +9,6 @@
 import Foundation
 
 
-// MARK: - protocol MovieListDataManagerInputProtocol
-protocol MovieListDataManagerInputProtocol: AnyObject {
-    // INTERACTOR -> DATAMANAGER
-}
-
-
 // MARK: - protocol MovieListLocalDataManagerInputProtocol
 protocol MovieListLocalDataManagerInputProtocol: AnyObject {
     // INTERACTOR -> LOCALDATAMANAGER

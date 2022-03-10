@@ -18,19 +18,33 @@ protocol MovieListRemoteDataManagerInputProtocol: AnyObject {
 }
 
 
-// MARK: - protocol MovieListRemoteDataManagerOutputProtocol
-protocol MovieListRemoteDataManagerOutputProtocol: AnyObject {
-    // REMOTEDATAMANAGER -> INTERACTOR
-}
-
-
 // MARK: - MovieListRemoteDataManagerInputProtocol
 class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
     
     //var remoteRequestHandler: MovieListRemoteDataManagerOutputProtocol?
     
+    private var firstPage = Constants.API.moviesFirstPage
+    private var incrementPage = Constants.API.moviesIncrementPage
+    private var limitPage = Constants.API.moviesPageLimit
+    private var page = Constants.API.moviesInitialPage
+    private var reachedPageLimit = false
+    
     func getPopularMovies(success: @escaping (([MovieResponse]) -> ()), failure: @escaping ((NetworkErrors) -> ())) {
-        let urlString = "\(Constants.API.URL.urlMainSite)\(Constants.API.Endpoints.urlEndpointListMovies)\(Constants.API.apiKeyParam)\(Constants.API.apiKeyValue)"
+        
+        page = (page != Constants.API.moviesInitialPage) ?  page + incrementPage : firstPage
+        
+        if reachedPageLimit == true {
+            failure(.noRequest)
+            return
+        }
+        
+        if page > limitPage {
+            reachedPageLimit = true
+            failure(.pageLimitReached)
+            return
+        }
+        
+        let urlString = "\(Constants.API.URL.urlMainSite)\(Constants.API.Endpoints.urlEndpointListMovies)\(Constants.API.apiKeyParam)\(Constants.API.apiKeyValue)\(Constants.API.Params.paramPage)\(page)"
         //print("URL - getPopularMovies: \(urlString)")
         
         guard let url = URL(string: urlString) else {

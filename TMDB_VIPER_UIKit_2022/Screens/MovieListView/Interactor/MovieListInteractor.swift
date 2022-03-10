@@ -9,7 +9,7 @@
 import Foundation
 
 
-// MARK: - protocol MovieListInteractorInputProtocol
+// MARK: - InteractorInputProtocol
 protocol MovieListInteractorInputProtocol: AnyObject {
     // PRESENTER -> INTERACTOR
     var presenter: MovieListInteractorOutputProtocol? { get set }
@@ -21,9 +21,21 @@ protocol MovieListInteractorInputProtocol: AnyObject {
 }
 
 
-// MARK: - protocol MovieListInteractorOutputProtocol
-protocol MovieListInteractorOutputProtocol: AnyObject {
-// INTERACTOR -> PRESENTER
+// MARK: - LocalDataManagerOutputProtocol
+protocol MovieListLocalDataManagerOutputProtocol: AnyObject {
+    // LOCALDATAMANAGER -> INTERACTOR
+}
+
+
+// MARK: - MockDataManagerOutputProtocol
+protocol MovieListMockDataManagerOutputProtocol: AnyObject {
+    // MOCKDATAMANAGER -> INTERACTOR
+}
+
+
+// MARK: - RemoteDataManagerOutputProtocol
+protocol MovieListRemoteDataManagerOutputProtocol: AnyObject {
+    // REMOTEDATAMANAGER -> INTERACTOR
 }
 
 
@@ -42,13 +54,7 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
         }
         return movies
     }
-
-}
-
-
-// MARK: - MovieListRemoteDataManagerOutputProtocol
-extension MovieListInteractor: MovieListRemoteDataManagerOutputProtocol {
-
+    
     func getPopularMovies(success: @escaping (([Movie]) -> ()), failure: @escaping ((NetworkErrors) -> ())) {
         //mockDatamanager?.getPopularMovies(success: success, failure: failure)
         remoteDatamanager?.getPopularMovies(success: { moviesResponse in
@@ -59,4 +65,19 @@ extension MovieListInteractor: MovieListRemoteDataManagerOutputProtocol {
         })
     }
 
+}
+
+
+// MARK: - RemoteDataManagerOutput
+extension MovieListInteractor: MovieListLocalDataManagerOutputProtocol {
+}
+
+
+// MARK: - RemoteDataManagerOutput
+extension MovieListInteractor: MovieListMockDataManagerOutputProtocol {
+}
+
+
+// MARK: - RemoteDataManagerOutput
+extension MovieListInteractor: MovieListRemoteDataManagerOutputProtocol {
 }

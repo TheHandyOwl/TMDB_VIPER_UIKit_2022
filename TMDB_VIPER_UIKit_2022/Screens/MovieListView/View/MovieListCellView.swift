@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 // MARK: - MovieListCellView
 class MovieListCellView: UITableViewCell {
 
