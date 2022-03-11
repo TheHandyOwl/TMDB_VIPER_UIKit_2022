@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.backgroundColor = .darkGray
         
-        let viewController = MovieListWireFrame.createMovieListModule()
+        let viewController = MovieDetailWireFrame.createMovieDetailModule()
         window?.rootViewController = viewController
         
         window?.makeKeyAndVisible()

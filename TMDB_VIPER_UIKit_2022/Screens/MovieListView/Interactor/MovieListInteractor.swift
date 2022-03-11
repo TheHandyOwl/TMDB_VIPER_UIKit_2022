@@ -57,9 +57,12 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
     
     func getPopularMovies(success: @escaping (([Movie]) -> ()), failure: @escaping ((NetworkErrors) -> ())) {
         //mockDatamanager?.getPopularMovies(success: success, failure: failure)
-        remoteDatamanager?.getPopularMovies(success: { moviesResponse in
-            let movies = self.mapMoviesResponseToMovies(moviesResponse: moviesResponse)
-            success(movies)
+        remoteDatamanager?.getPopularMovies(success: { [weak self] moviesResponse in
+            if let movies = self?.mapMoviesResponseToMovies(moviesResponse: moviesResponse) {
+                success(movies)
+            } else {
+                failure(.mappingError)
+            }
         }, failure: { networkError in
             failure(networkError)
         })

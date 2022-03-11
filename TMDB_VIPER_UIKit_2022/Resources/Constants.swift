@@ -29,6 +29,7 @@ struct Constants {
         
         struct Endpoints {
             static let urlEndpointListMovies = "3/movie/popular"
+            static let urlEndpointDetailMovie = "3/movie/"
         }
         
         struct Params {
@@ -58,6 +59,13 @@ struct Constants {
                 static let placeholderImage = "film.circle"
             }
             
+        }
+        
+        struct MovieDetail {
+            static let mockID = "634649"
+            static let nibName = "MovieDetailView"
+            static let placeholderImage = "film.circle"
+            static let title = "Movie detail"
         }
         
     }

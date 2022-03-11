@@ -13,6 +13,7 @@ enum NetworkErrors: Error {
     case dataError
     case decodingImage
     case decodingJSONError
+    case mappingError
     case networkError
     case noRequest
     case pageLimitReached
