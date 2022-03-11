@@ -16,6 +16,8 @@ protocol MovieDetailPresenterProtocol: AnyObject {
     var interactor: MovieDetailInteractorInputProtocol? { get set }
     var wireFrame: MovieDetailWireFrameProtocol? { get set }
     
+    var movieId: String { get set }
+    
     func viewDidLoad()
 }
 
@@ -32,6 +34,19 @@ class MovieDetailPresenter  {
     weak var view: MovieDetailViewProtocol?
     var interactor: MovieDetailInteractorInputProtocol?
     var wireFrame: MovieDetailWireFrameProtocol?
+    
+    var movieId: String = ""
+    
+    private func getMovieDetail(movieID: String) {
+        view?.startActivity()
+        interactor?.getMovie(movieID: movieId, success: { [weak self] movieDetail in
+            self?.view?.setupMovie(movieDetail: movieDetail)
+            self?.view?.stopActivity()
+        }, failure: { [weak self] networkError in
+            self?.view?.stopActivity()
+            print("\(Constants.Strings.errorLiteral): \(networkError.localizedDescription)")
+        })
+    }
 
 }
 
@@ -42,14 +57,9 @@ extension MovieDetailPresenter: MovieDetailPresenterProtocol {
     // TODO: implement presenter methods
     func viewDidLoad() {
         view?.setupUI(withTitle: Constants.Views.MovieDetail.title)
-        view?.startActivity()
-        interactor?.getMovie(movieID: Constants.Views.MovieDetail.mockID, success: { [weak self] movieDetail in
-            self?.view?.setupMovie(movieDetail: movieDetail)
-            self?.view?.stopActivity()
-        }, failure: { [weak self] networkError in
-            self?.view?.stopActivity()
-            print("\(Constants.Strings.errorLiteral): \(networkError.localizedDescription)")
-        })
+        if movieId != "" {
+            getMovieDetail(movieID: movieId)
+        }
     }
     
 }

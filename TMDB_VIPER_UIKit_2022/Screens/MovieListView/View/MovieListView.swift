@@ -35,19 +35,9 @@ final class MovieListView: UIViewController {
     
     private var disposeBag = DisposeBag()
     
-    private var filteredMovies: [Movie] = [] {
-        didSet {
-            filteredMovies.sort { $0.title < $1.title }
-        }
-    }
+    private var filteredMovies: [Movie] = []
     
-    private var movies: [Movie] = [] {
-        didSet {
-            movies.sort { $0.title < $1.title }
-        }
-    }
-    
-    private var searchBarFilterString = ""
+    private var movies: [Movie] = []
     
     private lazy var searchController: UISearchController = {
         ControllerFactory.shared.createUISearchController(placeholderText: Constants.Views.MovieList.searchBarPlaceholder)
@@ -62,6 +52,24 @@ final class MovieListView: UIViewController {
         presenter?.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        presenter?.viewWillAppear() { movies, searchString in
+            if searchString != "" {
+                searchController.isActive = true
+                searchController.searchBar.text = searchString
+                filteredMovies = movies
+                reloadTable()
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        presenter?.viewWillDisappear(filteredMovies: filteredMovies, filteredString: searchController.searchBar.text ?? "")
+        searchController.isActive = false
+    }
+    
+    
+    // MARK: Private methods
     private func configSearchControllerAndDelegate() {
         searchController.delegate = self
         searchController.searchBar.delegate = self
@@ -74,9 +82,12 @@ final class MovieListView: UIViewController {
             .orEmpty
             .distinctUntilChanged()
             .subscribe { titleString in
-                self.searchBarFilterString = titleString.count > 0 ? titleString : ""
-                self.filteredMovies = self.movies.filter { movie in
-                    movie.title.lowercased().contains(titleString.lowercased()) == true
+                if titleString == "" {
+                    self.filteredMovies = self.movies
+                } else {
+                    self.filteredMovies = self.movies.filter { movie in
+                        movie.title.lowercased().contains(titleString.lowercased()) == true
+                    }
                 }
                 self.reloadTable()
             } onError: { error in
@@ -87,7 +98,7 @@ final class MovieListView: UIViewController {
     }
     
     private func getMoviesOrFilteredMovies() -> [Movie] {
-        let isFiltering = searchController.isActive && searchBarFilterString != ""
+        let isFiltering = searchController.searchBar.text != ""
         return isFiltering ? filteredMovies: movies
     }
     
@@ -109,10 +120,10 @@ final class MovieListView: UIViewController {
 extension MovieListView: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchController.searchBar.text = ""
         searchController.isActive = false
         reloadTable()
     }
-    
 }
 
 
@@ -125,16 +136,18 @@ extension MovieListView: UISearchControllerDelegate {
 extension MovieListView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let items = getMoviesOrFilteredMovies().count
+        let movies = getMoviesOrFilteredMovies()
+        let items = movies.count
         return items
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = indexPath.row
-        let item = getMoviesOrFilteredMovies()[row]
+        let movies = getMoviesOrFilteredMovies()
+        let item = movies[row]
         
         // Fetching more pages?
-        let fetchMovies = (row >= movies.count - 7) && searchBarFilterString == "" && activityIndicator.isHidden
+        let fetchMovies = (row >= movies.count - 7) && searchController.searchBar.text == "" && activityIndicator.isHidden
         if fetchMovies {
             presenter?.getMovies()
         }
@@ -155,9 +168,11 @@ extension MovieListView: UITableViewDataSource {
 extension MovieListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row
-        let item = getMoviesOrFilteredMovies()[row]
+        let movies = getMoviesOrFilteredMovies()
+        let item = movies[row]
+        let movieId = item.movieID
         
-        print("Item: \(item.title)")
+        presenter?.goToDetailView(movieId: movieId)
     }
 }
 

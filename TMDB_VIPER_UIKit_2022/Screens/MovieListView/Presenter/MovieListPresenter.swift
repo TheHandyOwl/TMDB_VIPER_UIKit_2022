@@ -17,7 +17,10 @@ protocol MovieListPresenterProtocol: AnyObject {
     var wireFrame: MovieListWireFrameProtocol? { get set }
     
     func getMovies()
+    func goToDetailView(movieId: Int)
     func viewDidLoad()
+    func viewWillAppear(dataHandler: ([Movie], String) -> ())
+    func viewWillDisappear(filteredMovies: [Movie], filteredString: String)
 }
 
 
@@ -34,6 +37,9 @@ class MovieListPresenter  {
     weak var view: MovieListViewProtocol?
     var interactor: MovieListInteractorInputProtocol?
     var wireFrame: MovieListWireFrameProtocol?
+    
+    private var filteredMoviesBackUp = [Movie]()
+    private var filteredStringBackUp = ""
     
 }
 
@@ -59,11 +65,27 @@ extension MovieListPresenter: MovieListPresenterProtocol {
         }
     }
     
+    func goToDetailView(movieId: Int) {
+        guard let view = view else { return }
+        
+        let movieIdAsString = String(movieId)
+        wireFrame?.goToDetailView(view: view, movieId: movieIdAsString)
+    }
+    
     func viewDidLoad() {
         let viewTitle = Constants.Views.MovieList.title
         view?.setupUI(viewTitle: viewTitle)
         
         getMovies()
+    }
+    
+    func viewWillAppear(dataHandler: ([Movie], String) -> ()) {
+        dataHandler(filteredMoviesBackUp, filteredStringBackUp)
+    }
+    
+    func viewWillDisappear(filteredMovies: [Movie], filteredString: String) {
+        filteredMoviesBackUp = filteredMovies
+        filteredStringBackUp = filteredString
     }
         
 }
