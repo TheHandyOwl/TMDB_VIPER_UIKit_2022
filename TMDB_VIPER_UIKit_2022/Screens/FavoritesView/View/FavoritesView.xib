@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FavoritesView" customModule="TMDB_VIPER_UIKit_2022" customModuleProvider="target">
+            <connections>
+                <outlet property="activityIndicator" destination="jSy-Cx-9K3" id="3aG-fd-SBA"/>
+                <outlet property="tableView" destination="AkU-LT-2uk" id="VUh-XJ-ESG"/>
+                <outlet property="view" destination="iN0-l3-epB" id="T4z-R8-hRo"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="AkU-LT-2uk">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="VTc-39-YJh"/>
+                        <outlet property="delegate" destination="-1" id="pat-7R-YoA"/>
+                    </connections>
+                </tableView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="jSy-Cx-9K3">
+                    <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                    <color key="color" name="AccentColor"/>
+                </activityIndicatorView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="AkU-LT-2uk" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="0W0-pM-5ca"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="AkU-LT-2uk" secondAttribute="trailing" id="68a-Yk-b3E"/>
+                <constraint firstItem="AkU-LT-2uk" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="6Pu-LA-5es"/>
+                <constraint firstItem="jSy-Cx-9K3" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="KfZ-IN-11n"/>
+                <constraint firstItem="jSy-Cx-9K3" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Ln4-hr-Ws8"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="AkU-LT-2uk" secondAttribute="bottom" id="fKa-Ft-uvR"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="73"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

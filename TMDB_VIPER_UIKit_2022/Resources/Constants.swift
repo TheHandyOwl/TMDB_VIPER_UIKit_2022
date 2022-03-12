@@ -40,12 +40,18 @@ struct Constants {
     
     // MARK: Strings
     struct Strings {
+        static let deleteLiteral = "Delete"
         static let errorLiteral = "Error"
     }
     
     
     // MARK: Views
     struct Views {
+        
+        struct Favorites {
+            static let nibName = "FavoritesView"
+            static let title = "Favorites"
+        }
         
         struct MovieList {
             
