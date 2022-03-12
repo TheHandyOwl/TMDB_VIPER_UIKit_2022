@@ -15,6 +15,9 @@ protocol FavoritesViewInteractorInputProtocol: AnyObject {
     var presenter: FavoritesViewInteractorOutputProtocol? { get set }
     var localDatamanager: FavoritesViewLocalDataManagerInputProtocol? { get set }
     var remoteDatamanager: FavoritesViewRemoteDataManagerInputProtocol? { get set }
+    
+    func getFavorites(success: @escaping (([Movie]) -> ()), failure: @escaping ((CoreDataErrors) -> ()))
+    func removeFavorite(favorite: Int, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ()))
 }
 
 
@@ -37,6 +40,14 @@ class FavoritesViewInteractor: FavoritesViewInteractorInputProtocol {
     weak var presenter: FavoritesViewInteractorOutputProtocol?
     var localDatamanager: FavoritesViewLocalDataManagerInputProtocol?
     var remoteDatamanager: FavoritesViewRemoteDataManagerInputProtocol?
+    
+    func getFavorites(success: @escaping (([Movie]) -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
+        localDatamanager?.getFavorites(success: success, failure: failure)
+    }
+    
+    func removeFavorite(favorite: Int, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
+        localDatamanager?.removeFavorite(favorite: favorite, success: success, failure: failure)
+    }
 
 }
 

@@ -15,7 +15,7 @@ protocol FavoritesViewProtocol: AnyObject {
     // PRESENTER -> VIEW
     var presenter: FavoritesViewPresenterProtocol? { get set }
     
-    func refreshData(favorites: [String])
+    func refreshData(favorites: [Movie])
     func setupUI(withTitle: String)
     
     
@@ -35,7 +35,7 @@ class FavoritesView: UIViewController {
     // MARK: Properties
     var presenter: FavoritesViewPresenterProtocol?
     
-    private var favorites = [String]()
+    private var favorites = [Movie]()
     
     
     // MARK: Lifecycle
@@ -58,18 +58,18 @@ class FavoritesView: UIViewController {
 // MARK: - FavoritesViewProtocol
 extension FavoritesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let favorites = presenter?.favoritesData ?? [String]()
+        let favorites = presenter?.favoritesData ?? []
         return favorites.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = indexPath.row
-        let favorites = presenter?.favoritesData ?? [String]()
+        let favorites = presenter?.favoritesData ?? []
         let item = favorites[row]
         
         let cell = UITableViewCell()
         var content = cell.defaultContentConfiguration()
-        content.text = item
+        content.text = item.title
         cell.contentConfiguration = content
         return cell
     }
@@ -84,18 +84,34 @@ extension FavoritesView: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteContextualAction = UIContextualAction(style: .destructive, title: Constants.Strings.deleteLiteral.capitalizingFirstLetter()) { [weak self] (contextualAction, view, completionHandler) in
+        
+        let handlerContextualAction: UIContextualAction.Handler = { [weak self] (contextualAction, view, completionHandler) in
             guard let presenter = self?.presenter else { return }
             
             let row = indexPath.row
             let item = presenter.favoritesData[row]
+            let movieId = item.movieID
             
-            presenter.removeFavorite(movieId: item)
-            completionHandler(true)
+            presenter.removeFavorite(movieId: movieId) {
+                DispatchQueue.main.async {
+                    self?.tableView.deleteRows(at: [indexPath], with: .fade)
+                    completionHandler(true)
+                }
+            } failure: {
+                DispatchQueue.main.async {
+                    completionHandler(false)
+                }
+            }
+
         }
         
+        let deleteContextualAction = UIContextualAction(style: .destructive, title: Constants.Strings.deleteLiteral.capitalizingFirstLetter(), handler: handlerContextualAction)
+        
         let swipeActions = UISwipeActionsConfiguration(actions: [deleteContextualAction])
+        swipeActions.performsFirstActionWithFullSwipe = false
+        
         return swipeActions
+        
     }
 }
 
@@ -103,7 +119,7 @@ extension FavoritesView: UITableViewDelegate {
 // MARK: - FavoritesViewProtocol
 extension FavoritesView: FavoritesViewProtocol {
 
-    func refreshData(favorites: [String]) {
+    func refreshData(favorites: [Movie]) {
         self.favorites = favorites
         reloadTable()
     }

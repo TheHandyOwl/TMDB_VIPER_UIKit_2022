@@ -38,6 +38,18 @@ struct Constants {
         
     }
     
+    
+    // MARK: Managers
+    struct Managers {
+        
+        struct CoreData {
+            static let favoriteMovieEntityName = "FavoriteMovie"
+            static let favoritesPersistentContainer = "MoviesCoreData"
+        }
+        
+    }
+    
+    
     // MARK: Strings
     struct Strings {
         static let deleteLiteral = "Delete"

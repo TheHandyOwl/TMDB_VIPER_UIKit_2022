@@ -16,9 +16,9 @@ protocol FavoritesViewPresenterProtocol: AnyObject {
     var interactor: FavoritesViewInteractorInputProtocol? { get set }
     var wireFrame: FavoritesViewWireFrameProtocol? { get set }
     
-    var favoritesData: [String] { get }
+    var favoritesData: [Movie] { get }
     
-    func removeFavorite(movieId: String)
+    func removeFavorite(movieId: Int, success: @escaping () -> (), failure: @escaping() -> ())
     func viewDidLoad()
 }
 
@@ -37,17 +37,28 @@ class FavoritesViewPresenter {
     var interactor: FavoritesViewInteractorInputProtocol?
     var wireFrame: FavoritesViewWireFrameProtocol?
 
-    var favoritesData: [String] {
+    var favoritesData: [Movie] {
         return favorites
     }
     
-    private var favorites = [String]()
+    private var favorites: [Movie] = [] {
+        didSet {
+            favorites.sort { $0.title < $1.title }
+        }
+    }
     
     private func getFavorites() {
-        sleep(5)
-        favorites = ["Spiderman", "Batman", "Eternals", "6 en la sombra"]
-        view?.refreshData(favorites: favorites)
-        view?.stopActivity()
+        self.view?.startActivity()
+        DispatchQueue.global().async {
+            self.interactor?.getFavorites(success: { favorites in
+                self.favorites = favorites
+                self.view?.refreshData(favorites: self.favorites)
+                self.view?.stopActivity()
+            }, failure: { coreDataError in
+                print("\(Constants.Strings.errorLiteral): \(coreDataError.localizedDescription)")
+                self.view?.stopActivity()
+            })
+        }
     }
     
 }
@@ -56,17 +67,21 @@ class FavoritesViewPresenter {
 // MARK: - FavoritesViewPresenterProtocol
 extension FavoritesViewPresenter: FavoritesViewPresenterProtocol {
     
-    func removeFavorite(movieId: String) {
-        favorites = favorites.filter { $0 != movieId }
-        view?.refreshData(favorites: favorites)
+    func removeFavorite(movieId: Int, success: @escaping () -> (), failure: @escaping () -> ()) {
+        DispatchQueue.global().async {
+            self.interactor?.removeFavorite(favorite: movieId, success: {
+                self.favorites = self.favorites.filter { $0.movieID != movieId }
+                success()
+            }, failure: { coreDataError in
+                print("\(Constants.Strings.errorLiteral): \(coreDataError.localizedDescription)")
+                failure()
+            })
+        }
     }
     
     func viewDidLoad() {
         view?.setupUI(withTitle: Constants.Views.Favorites.title)
-        self.view?.startActivity()
-        DispatchQueue.global().async {
-            self.getFavorites()
-        }
+        self.getFavorites()
     }
     
 }

@@ -8,6 +8,17 @@
 import Foundation
 
 
+// MARK: - CoreDataErrors
+enum CoreDataErrors: Error {
+    case fetchingRequest
+    case insertFavoriteMovie
+    case noManagedObjectContext
+    case removeFavoriteMovie
+    case overflowInt32
+    case unknownError
+}
+
+
 // MARK: - NetworkErrors
 enum NetworkErrors: Error {
     case dataError
