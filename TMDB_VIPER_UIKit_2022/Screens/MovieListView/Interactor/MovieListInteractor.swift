@@ -17,6 +17,7 @@ protocol MovieListInteractorInputProtocol: AnyObject {
     var mockDatamanager: MovieListMockDataManagerInputProtocol? { get set }
     var remoteDatamanager: MovieListRemoteDataManagerInputProtocol? { get set }
     
+    func addOrRemoveFavorite(movie: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ()))
     func getPopularMovies(success: @escaping (([Movie]) -> ()), failure: @escaping ((NetworkErrors) -> ()))
 }
 
@@ -39,8 +40,8 @@ protocol MovieListRemoteDataManagerOutputProtocol: AnyObject {
 }
 
 
-// MARK: - MovieListInteractorInputProtocol
-class MovieListInteractor: MovieListInteractorInputProtocol {
+// MARK: - MovieListInteractor
+class MovieListInteractor {
 
     // MARK: Properties
     weak var presenter: MovieListInteractorOutputProtocol?
@@ -55,6 +56,16 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
         return movies
     }
     
+}
+
+
+// MARK: - MovieListInteractorInputProtocol
+extension MovieListInteractor: MovieListInteractorInputProtocol {
+    
+    func addOrRemoveFavorite(movie: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
+        localDatamanager?.addOrRemoveFavorite(movie: movie, success: success, failure: failure)
+    }
+    
     func getPopularMovies(success: @escaping (([Movie]) -> ()), failure: @escaping ((NetworkErrors) -> ())) {
         //mockDatamanager?.getPopularMovies(success: success, failure: failure)
         remoteDatamanager?.getPopularMovies(success: { [weak self] moviesResponse in
@@ -67,7 +78,7 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
             failure(networkError)
         })
     }
-
+    
 }
 
 

@@ -10,6 +10,7 @@ import Foundation
 
 // MARK: - CoreDataErrors
 enum CoreDataErrors: Error {
+    case contextWithoutChanges
     case fetchingRequest
     case insertFavoriteMovie
     case noManagedObjectContext

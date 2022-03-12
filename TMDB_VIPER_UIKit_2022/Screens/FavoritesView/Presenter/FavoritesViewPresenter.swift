@@ -20,6 +20,7 @@ protocol FavoritesViewPresenterProtocol: AnyObject {
     
     func removeFavorite(movieId: Int, success: @escaping () -> (), failure: @escaping() -> ())
     func viewDidLoad()
+    func viewWillAppear()
 }
 
 
@@ -84,6 +85,9 @@ extension FavoritesViewPresenter: FavoritesViewPresenterProtocol {
         self.getFavorites()
     }
     
+    func viewWillAppear() {
+        self.getFavorites()
+    }
 }
 
 

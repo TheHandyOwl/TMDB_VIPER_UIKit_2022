@@ -52,8 +52,10 @@ struct Constants {
     
     // MARK: Strings
     struct Strings {
+        static let addFavoriteLiteral = "Add favorite"
         static let deleteLiteral = "Delete"
         static let errorLiteral = "Error"
+        static let removeFavoriteLiteral = "Remove favorite"
     }
     
     
@@ -63,6 +65,13 @@ struct Constants {
         struct Favorites {
             static let nibName = "FavoritesView"
             static let title = "Favorites"
+        }
+        
+        struct Home {
+            static let firstTabBarIcon = "film"
+            static let firstTabBarText = "Movies"
+            static let secondTabBarIcon = "star"
+            static let secondTabBarText = "Favorites"
         }
         
         struct MovieList {

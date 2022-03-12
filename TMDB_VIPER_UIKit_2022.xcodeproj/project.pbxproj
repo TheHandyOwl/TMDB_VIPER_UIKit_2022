@@ -31,6 +31,7 @@
 		0706ECAC27DA9A5B00C7951A /* ControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706ECAB27DA9A5B00C7951A /* ControllerFactory.swift */; };
 		0762670F27DD0F370063D6DF /* FavoriteMovie+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762670D27DD0F370063D6DF /* FavoriteMovie+CoreDataClass.swift */; };
 		0762671027DD0F370063D6DF /* FavoriteMovie+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762670E27DD0F370063D6DF /* FavoriteMovie+CoreDataProperties.swift */; };
+		0762673127DD23410063D6DF /* HomeWireFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0762672A27DD23410063D6DF /* HomeWireFrame.swift */; };
 		07C9F1C027DCC34B00320A8A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C9F1BF27DCC34B00320A8A /* CoreDataManager.swift */; };
 		07C9F1C327DCC83100320A8A /* MoviesCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07C9F1C127DCC83100320A8A /* MoviesCoreData.xcdatamodeld */; };
 		07F05A5C27DB471800A2B90C /* MovieDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F05A5527DB471800A2B90C /* MovieDetailPresenter.swift */; };
@@ -80,6 +81,7 @@
 		0706ECAB27DA9A5B00C7951A /* ControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerFactory.swift; sourceTree = "<group>"; };
 		0762670D27DD0F370063D6DF /* FavoriteMovie+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FavoriteMovie+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0762670E27DD0F370063D6DF /* FavoriteMovie+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FavoriteMovie+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0762672A27DD23410063D6DF /* HomeWireFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWireFrame.swift; sourceTree = "<group>"; };
 		07C9F1BF27DCC34B00320A8A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		07C9F1C227DCC83100320A8A /* MoviesCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MoviesCoreData.xcdatamodel; sourceTree = "<group>"; };
 		07F05A5527DB471800A2B90C /* MovieDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailPresenter.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 		0706EC7827DA0B3A00C7951A /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				0762672327DD23170063D6DF /* HomeView */,
 				07F05A6F27DBEF2E00A2B90C /* FavoritesView */,
 				0706EC6127DA0A0100C7951A /* MovieListView */,
 				07F05A5427DB46FD00A2B90C /* MovieDetailView */,
@@ -278,6 +281,22 @@
 				07C9F1C827DCCC3D00320A8A /* Objects */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		0762672327DD23170063D6DF /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				0762673327DD23660063D6DF /* Router */,
+			);
+			path = HomeView;
+			sourceTree = "<group>";
+		};
+		0762673327DD23660063D6DF /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				0762672A27DD23410063D6DF /* HomeWireFrame.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		07C9F1BD27DCC32400320A8A /* Managers */ = {
@@ -581,6 +600,7 @@
 				0706EC9A27DA2BE600C7951A /* MovieListCellView.swift in Sources */,
 				0706EC9627DA197100C7951A /* MovieListMockDataManager.swift in Sources */,
 				07C9F1C027DCC34B00320A8A /* CoreDataManager.swift in Sources */,
+				0762673127DD23410063D6DF /* HomeWireFrame.swift in Sources */,
 				07F05A7D27DBF08200A2B90C /* FavoritesViewWireFrame.swift in Sources */,
 				0762671027DD0F370063D6DF /* FavoriteMovie+CoreDataProperties.swift in Sources */,
 				0706ECA627DA612300C7951A /* ImageCache.swift in Sources */,
@@ -754,6 +774,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TMDB_VIPER_UIKit_2022/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -781,6 +802,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TMDB_VIPER_UIKit_2022/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

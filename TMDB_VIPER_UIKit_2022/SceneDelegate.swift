@@ -21,8 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.backgroundColor = .darkGray
         
-        let viewController = FavoritesViewWireFrame.createFavoritesViewModule()
-        window?.rootViewController = viewController
+        let tabBarController = HomeWireFrame.createHomeModule()
+        window?.rootViewController = tabBarController
         
         window?.makeKeyAndVisible()
     }

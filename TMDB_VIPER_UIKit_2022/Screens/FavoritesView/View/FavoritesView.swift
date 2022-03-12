@@ -44,6 +44,10 @@ class FavoritesView: UIViewController {
         presenter?.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        presenter?.viewWillAppear()
+    }
+    
     
     // MARK: Private methods
     private func reloadTable() {
@@ -83,6 +87,7 @@ extension FavoritesView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let handlerContextualAction: UIContextualAction.Handler = { [weak self] (contextualAction, view, completionHandler) in
@@ -113,6 +118,7 @@ extension FavoritesView: UITableViewDelegate {
         return swipeActions
         
     }
+    
 }
 
 
