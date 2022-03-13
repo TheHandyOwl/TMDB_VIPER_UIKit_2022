@@ -12,14 +12,31 @@ import Foundation
 // MARK: - protocol MovieListPresenterProtocol
 protocol MovieListPresenterProtocol: AnyObject {
     // VIEW -> PRESENTER
+    
     var view: MovieListViewProtocol? { get set }
     var interactor: MovieListInteractorInputProtocol? { get set }
     var wireFrame: MovieListWireFrameProtocol? { get set }
     
+    /// Get movies
     func getMovies()
+    
+    /// Here you can go to the screen that shows details of a movie
+    /// - Parameters:
+    ///   - movieID: identifier needed
     func goToDetailView(movieID: Int)
+    
+    /// View lifecycle
     func viewDidLoad()
+    
+    /// View lifecycle
+    /// - Parameter dataHandler: handler with information to restore the view
     func viewWillAppear(dataHandler: ([Movie], [Movie], String) -> ())
+    
+    /// View lifecycle. Data to store
+    /// - Parameters:
+    ///   - movies: all movies
+    ///   - filteredMovies: filtered movies
+    ///   - filteredString: string that filter the movies
     func viewWillDisappear(movies: [Movie], filteredMovies: [Movie], filteredString: String)
 }
 

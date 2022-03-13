@@ -13,7 +13,18 @@ import Foundation
 // MARK:
 protocol MovieDetailLocalDataManagerInputProtocol: AnyObject {
     // INTERACTOR -> LOCALDATAMANAGER
+    
+    /// Add or remove a movie locally
+    /// - Parameters:
+    ///   - state: switch state, true to add or false to remove
+    ///   - movieDetail: movie data to store
+    ///   - success: success handler
+    ///   - failure: failure handler
     func addOrRemoveFavorite(state: Bool, movieDetail: MovieDetail, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ()))
+    
+    /// Check if a movie is stored locally
+    /// - Parameter movieID: movie identifier
+    /// - Returns: true if exists, false not exists
     func existsMovie(movieID: Int) -> Bool
 }
 
@@ -24,6 +35,11 @@ final class MovieDetailLocalDataManager {
     private var fetchRequest: NSFetchRequest<CDFavorite> = CDFavorite.fetchRequest()
     private var managedObjectContext: NSManagedObjectContext = CoreDataManager.shared.persistentContainer.viewContext
     
+    /// <#Description#>
+    /// - Parameters:
+    ///   - movie: <#movie description#>
+    ///   - success: <#success description#>
+    ///   - failure: <#failure description#>
     private func addMovie(movie: MovieDetail, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
         guard let movieID32 = Int32(exactly: movie.movieID) else {
             failure(.overflowInt32)

@@ -15,11 +15,18 @@ protocol FavoritesViewProtocol: AnyObject {
     // PRESENTER -> VIEW
     var presenter: FavoritesViewPresenterProtocol? { get set }
     
+    /// Check if a movie has been stored as a favorite
+    /// - Parameter favorites: refresh screen with movies
     func refreshData(favorites: [Movie])
+    
+    /// Setup interface
+    /// - Parameter withTitle: title view
     func setupUI(withTitle: String)
     
-    
+    /// Enable flag. Task begins
     func startActivity()
+    
+    /// Disable flag. Task finished
     func stopActivity()
 }
 

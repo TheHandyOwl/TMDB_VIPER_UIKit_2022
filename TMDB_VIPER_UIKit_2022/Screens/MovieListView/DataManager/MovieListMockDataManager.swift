@@ -11,8 +11,13 @@ import Foundation
 // MARK: - protocol MovieListMockDataManagerInputProtocol
 protocol MovieListMockDataManagerInputProtocol: AnyObject {
     // INTERACTOR -> MOCKDATAMANAGER
+    
     //var remoteRequestHandler: MovieListMockDataManagerOutputProtocol? { get set }
     
+    /// Fake data generated here to draw interface
+    /// - Parameters:
+    ///   - success: success handler with movies. Local storage
+    ///   - failure: failure handler with network error if needed
     func getPopularMovies(success: @escaping (([Movie]) -> ()), failure: @escaping ((NetworkErrors) -> ()))
 }
 

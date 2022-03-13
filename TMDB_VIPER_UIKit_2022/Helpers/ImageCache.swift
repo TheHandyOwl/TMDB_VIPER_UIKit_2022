@@ -11,9 +11,20 @@ import UIKit
 
 // MARK: - ImageCacheProtocol
 protocol ImageCacheProtocol: AnyObject {
+    
+    /// Singleton pattern
     static var shared: ImageCacheProtocol { get }
     
+    /// Retrieve an image locally, stored in `Dictionary<String, UIImage>`
+    /// - Parameters:
+    ///   - urlString: string ID to retrieve the image
+    /// - Returns: UIImage or nil
     func retrieveImageFromCache(urlString: String) -> UIImage?
+    
+    /// Store an image locally, in `Dictionary<String, UIImage>`
+    /// - Parameters:
+    ///   - image: string ID to save
+    ///   - urlString: string ID to save the image
     func saveImageToChache(image: UIImage?, urlString: String)
 }
 

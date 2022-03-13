@@ -13,6 +13,10 @@ import UIKit
 // MARK: - procotol HomeWireFrameProtocol
 protocol HomeWireFrameProtocol: AnyObject {
     // PRESENTER -> WIREFRAME
+    
+    /// This is the WireFrame for the main view of the application.
+    /// Here you can configure as many UITabBarItem as you want, linking to other ()ViewControllers
+    /// - Returns: UITabBarController with the configured UIViewControllers, icons and texts
     static func createHomeModule() -> UITabBarController
 }
 

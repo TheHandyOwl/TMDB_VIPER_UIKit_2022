@@ -13,6 +13,11 @@ import Foundation
 // MARK: - protocol FavoritesViewLocalDataManagerInputProtocol
 protocol FavoritesViewLocalDataManagerInputProtocol: AnyObject {
     // INTERACTOR -> LOCALDATAMANAGER
+
+    /// Get favorite movies stored locally
+    /// - Parameters:
+    ///   - success: success handler with movies. Local storage
+    ///   - failure: failure handler with network error
     func getFavorites(success: @escaping (([Movie]) -> ()), failure: @escaping ((CoreDataErrors) -> ()))
 }
 

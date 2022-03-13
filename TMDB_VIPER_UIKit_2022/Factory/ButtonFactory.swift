@@ -11,6 +11,7 @@ import UIKit
 // MARK: - ButtonFactory
 final class ButtonFactory {
     
+    /// Singleton pattern
     static var shared: ButtonFactory = {
         let instance = ButtonFactory()
         return instance
@@ -21,6 +22,12 @@ final class ButtonFactory {
 
 extension ButtonFactory {
     
+    /// Button system item
+    /// - Parameters:
+    ///   - barButtonSystemItem: barButtonSystemItem type needed
+    ///   - target: target or nil
+    ///   - action: action or nil
+    /// - Returns: UIBarButtonItem
     func createUIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem, target: Any?, action: Selector?) -> UIBarButtonItem {
         let barButtonItem = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: target, action: action)
         return barButtonItem
@@ -31,7 +38,14 @@ extension ButtonFactory {
 
 extension ButtonFactory {
     
-    func createToggleUIBarButtonItem(defaultValue: Bool, tintColor: UIColor, target: Any?, action: Selector?) -> UIBarButtonItem {
+    /// Custom button
+    /// - Parameters:
+    ///   - defaultValue: switch on/off value
+    ///   - tintColor: custom color, '.systemBlue' as default
+    ///   - target: target or nil
+    ///   - action: action or nil
+    /// - Returns: UIBarButtonItem
+    func createToggleUIBarButtonItem(defaultValue: Bool, tintColor: UIColor = .systemBlue, target: Any?, action: Selector?) -> UIBarButtonItem {
         let switchControl = UISwitch(frame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 50, height: 30)))
         switchControl.isOn = defaultValue
         switchControl.onTintColor = tintColor

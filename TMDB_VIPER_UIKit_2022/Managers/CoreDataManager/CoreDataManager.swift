@@ -12,6 +12,7 @@ import Foundation
 // MARK: - CoreDataManager
 final class CoreDataManager {
     
+    /// Singleton pattern
     static var shared: CoreDataManager = {
         let instance = CoreDataManager()
         return instance

@@ -15,12 +15,27 @@ import UIKit
 // MARK: - protocol MovieListViewProtocol
 protocol MovieListViewProtocol: AnyObject {
     // PRESENTER -> VIEW
+    
     var presenter: MovieListPresenterProtocol? { get set }
     
+    /// Add new movies to existing ones
+    /// - Parameter movies: new movies
     func addMoviesAndRefreshList(movies: [Movie])
+
+    /// Check if a movie has been stored as a favorite
+    /// - Parameters:
+    ///   - movies: movies to check
+    ///   - filteredMovies: filtered movies to check
     func refreshFavorites(movies: [Movie], filteredMovies: [Movie])
+    
+    /// Setup interface
+    /// - Parameter withTitle: title view
     func setupUI(viewTitle: String)
+    
+    /// Enable flag. Task begins
     func startActivity()
+    
+    /// Disable flag. Task finished
     func stopActivity()
 }
 
@@ -159,7 +174,7 @@ extension MovieListView: UITableViewDataSource {
         }
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Views.MovieList.MovieCell.cellID) as? MovieListCellView {
-            cell.configureCell(movieTitle: item.title, movieSinopsis: item.synopsis, image: item.image)
+            cell.configureCell(movieTitle: item.title, movieSynopsis: item.synopsis, image: item.image)
             return cell
         }
         

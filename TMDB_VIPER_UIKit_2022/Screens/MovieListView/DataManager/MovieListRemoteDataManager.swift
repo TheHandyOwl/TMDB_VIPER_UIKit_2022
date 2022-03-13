@@ -14,6 +14,10 @@ protocol MovieListRemoteDataManagerInputProtocol: AnyObject {
     // INTERACTOR -> REMOTEDATAMANAGER
     //var remoteRequestHandler: MovieListRemoteDataManagerOutputProtocol? { get set }
     
+    /// Get movies from network
+    /// - Parameters:
+    ///   - success: success handler with movies. Response from network
+    ///   - failure: failure handler with network error
     func getPopularMovies(success: @escaping (([MovieResponse]) -> ()), failure: @escaping ((NetworkErrors) -> ()))
 }
 
