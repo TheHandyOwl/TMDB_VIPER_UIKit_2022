@@ -18,7 +18,7 @@ protocol MovieDetailWireFrameProtocol: AnyObject {
 
 
 // MARK: MovieDetailWireFrame
-class MovieDetailWireFrame: MovieDetailWireFrameProtocol {
+final class MovieDetailWireFrame: MovieDetailWireFrameProtocol {
     
     private static var mainView: UIViewController {
         return MovieDetailView(nibName: Constants.Views.MovieDetail.nibName, bundle: Bundle.main)

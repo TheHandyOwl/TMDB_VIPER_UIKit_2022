@@ -28,7 +28,7 @@ protocol MovieDetailInteractorOutputProtocol: AnyObject {
 }
 
 // MARK: - MovieDetailPresenter
-class MovieDetailPresenter  {
+final class MovieDetailPresenter  {
     
     // MARK: Properties
     weak var view: MovieDetailViewProtocol?

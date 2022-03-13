@@ -33,7 +33,7 @@ protocol MovieListInteractorOutputProtocol: AnyObject {
 
 
 // MARK: - MovieListPresenter
-class MovieListPresenter  {
+final class MovieListPresenter  {
     
     // MARK: Properties
     weak var view: MovieListViewProtocol?

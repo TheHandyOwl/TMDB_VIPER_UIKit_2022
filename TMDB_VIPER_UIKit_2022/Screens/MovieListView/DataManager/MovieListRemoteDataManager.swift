@@ -19,7 +19,7 @@ protocol MovieListRemoteDataManagerInputProtocol: AnyObject {
 
 
 // MARK: - MovieListRemoteDataManagerInputProtocol
-class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
+final class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
     
     //var remoteRequestHandler: MovieListRemoteDataManagerOutputProtocol?
     

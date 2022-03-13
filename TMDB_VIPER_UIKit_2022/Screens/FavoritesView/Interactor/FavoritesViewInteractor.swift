@@ -34,7 +34,7 @@ protocol FavoritesViewRemoteDataManagerOutputProtocol: AnyObject {
 
 
 // MARK: - FavoritesViewInteractorInputProtocol
-class FavoritesViewInteractor: FavoritesViewInteractorInputProtocol {
+final class FavoritesViewInteractor: FavoritesViewInteractorInputProtocol {
 
     // MARK: Properties
     weak var presenter: FavoritesViewInteractorOutputProtocol?

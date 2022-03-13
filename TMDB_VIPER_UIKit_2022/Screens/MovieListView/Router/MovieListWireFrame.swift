@@ -20,13 +20,13 @@ protocol MovieListWireFrameProtocol: AnyObject {
 
 
 // MARK: - MovieListWireFrameProtocol
-class MovieListWireFrame: MovieListWireFrameProtocol {
+final class MovieListWireFrame: MovieListWireFrameProtocol {
     
     private static var mainView: UIViewController {
         return MovieListView(nibName: Constants.Views.MovieList.nibName, bundle: Bundle.main)
     }
     
-    class func createMovieListModule() -> UIViewController {
+    final class func createMovieListModule() -> UIViewController {
         
         let navController = UINavigationController(rootViewController: mainView)
 

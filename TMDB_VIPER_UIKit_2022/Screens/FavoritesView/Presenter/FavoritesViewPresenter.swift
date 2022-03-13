@@ -31,7 +31,7 @@ protocol FavoritesViewInteractorOutputProtocol: AnyObject {
 
 
 // MARK: - FavoritesViewPresenter
-class FavoritesViewPresenter {
+final class FavoritesViewPresenter {
     
     // MARK: Properties
     weak var view: FavoritesViewProtocol?

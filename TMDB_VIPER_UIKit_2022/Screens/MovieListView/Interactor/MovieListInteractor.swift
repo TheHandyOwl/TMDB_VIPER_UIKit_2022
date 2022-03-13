@@ -41,7 +41,7 @@ protocol MovieListRemoteDataManagerOutputProtocol: AnyObject {
 
 
 // MARK: - MovieListInteractor
-class MovieListInteractor {
+final class MovieListInteractor {
 
     // MARK: Properties
     weak var presenter: MovieListInteractorOutputProtocol?

@@ -20,7 +20,7 @@ protocol MovieListLocalDataManagerInputProtocol: AnyObject {
 
 
 // MARK: - MovieListLocalDataManager
-class MovieListLocalDataManager {
+final class MovieListLocalDataManager {
     
     private var fetchRequest: NSFetchRequest<CDFavorite> = CDFavorite.fetchRequest()
     private var managedObjectContext: NSManagedObjectContext = CoreDataManager.shared.persistentContainer.viewContext

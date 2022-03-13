@@ -19,7 +19,7 @@ protocol ImageCacheProtocol: AnyObject {
 
 
 // MARK: - ImageCache
-class ImageCache: ImageCacheProtocol {
+final class ImageCache: ImageCacheProtocol {
     
     static var shared: ImageCacheProtocol = ImageCache()
     

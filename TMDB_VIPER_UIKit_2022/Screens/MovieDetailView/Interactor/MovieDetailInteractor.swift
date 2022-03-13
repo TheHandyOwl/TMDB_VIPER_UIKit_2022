@@ -27,7 +27,7 @@ protocol MovieDetailRemoteDataManagerOutputProtocol: AnyObject {
 
 
 // MARK: - MovieDetailInteractorInputProtocol
-class MovieDetailInteractor: MovieDetailInteractorInputProtocol {
+final class MovieDetailInteractor: MovieDetailInteractorInputProtocol {
 
     // MARK: Properties
     weak var presenter: MovieDetailInteractorOutputProtocol?

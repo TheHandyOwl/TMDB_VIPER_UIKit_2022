@@ -16,6 +16,6 @@ protocol MovieDetailLocalDataManagerInputProtocol: AnyObject {
 
 
 //MARK
-class MovieDetailLocalDataManager:MovieDetailLocalDataManagerInputProtocol {
+final class MovieDetailLocalDataManager: MovieDetailLocalDataManagerInputProtocol {
     
 }

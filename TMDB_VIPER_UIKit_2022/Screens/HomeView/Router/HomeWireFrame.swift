@@ -20,7 +20,7 @@ protocol HomeWireFrameProtocol: AnyObject {
 // MARK: HomeWireFrameProtocol
 final class HomeWireFrame: HomeWireFrameProtocol {
     
-    class func createHomeModule() -> UITabBarController {
+    final class func createHomeModule() -> UITabBarController {
         
         let tabBarController = UITabBarController()
         

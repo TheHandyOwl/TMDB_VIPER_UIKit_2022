@@ -19,7 +19,7 @@ protocol FavoritesViewLocalDataManagerInputProtocol: AnyObject {
 
 
 // MARK: - FavoritesViewLocalDataManager
-class FavoritesViewLocalDataManager {
+final class FavoritesViewLocalDataManager {
     
     private var fetchRequest: NSFetchRequest<CDFavorite> = CDFavorite.fetchRequest()
     private var searchResults: Array<CDFavorite> = []

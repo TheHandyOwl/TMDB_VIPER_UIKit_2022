@@ -18,7 +18,7 @@ protocol MovieListMockDataManagerInputProtocol: AnyObject {
 
 
 // MARK: - MovieListMockDataManagerInputProtocol
-class MovieListMockDataManager: MovieListMockDataManagerInputProtocol {
+final class MovieListMockDataManager: MovieListMockDataManagerInputProtocol {
     
     //var remoteRequestHandler: MovieListMockDataManagerOutputProtocol?
     
