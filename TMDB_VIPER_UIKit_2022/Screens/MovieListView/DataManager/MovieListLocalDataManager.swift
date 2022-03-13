@@ -26,14 +26,14 @@ class MovieListLocalDataManager {
     private var managedObjectContext: NSManagedObjectContext = CoreDataManager.shared.persistentContainer.viewContext
     
     private func addMovie(movie: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
-        guard let movieId32 = Int32(exactly: movie.movieID) else {
+        guard let movieID32 = Int32(exactly: movie.movieID) else {
             failure(.overflowInt32)
             return
         }
         
         let newMovie = NSEntityDescription.insertNewObject(forEntityName: Constants.Managers.CoreData.favoriteMovieEntityName, into: managedObjectContext) as! CDFavorite
         
-        newMovie.id = movieId32
+        newMovie.id = movieID32
         newMovie.image = movie.image
         newMovie.synopsis = movie.synopsis
         newMovie.title = movie.title
@@ -53,12 +53,12 @@ class MovieListLocalDataManager {
     }
     
     private func removeMovie(movie: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
-        guard let movieId32 = Int32(exactly: movie.movieID) else {
+        guard let movieID32 = Int32(exactly: movie.movieID) else {
             failure(.overflowInt32)
             return
         }
         
-        let predicate = NSPredicate(format: "%K = %@", #keyPath(CDFavorite.id), NSNumber(value: movieId32))
+        let predicate = NSPredicate(format: "%K = %@", #keyPath(CDFavorite.id), NSNumber(value: movieID32))
         fetchRequest.predicate = predicate
         do {
             let moviesFetched = try managedObjectContext.fetch(fetchRequest)
@@ -85,12 +85,12 @@ extension MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
     
     func existsMovie(movie: Movie, success: @escaping ((Bool) -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
         
-            guard let movieId32 = Int32(exactly: movie.movieID) else {
+            guard let movieID32 = Int32(exactly: movie.movieID) else {
                 failure(.overflowInt32)
                 return
             }
             
-            let predicate = NSPredicate(format: "%K = %@", #keyPath(CDFavorite.id), NSNumber(value: movieId32))
+            let predicate = NSPredicate(format: "%K = %@", #keyPath(CDFavorite.id), NSNumber(value: movieID32))
             fetchRequest.predicate = predicate
             do {
                 let moviesFetched = try managedObjectContext.fetch(fetchRequest)

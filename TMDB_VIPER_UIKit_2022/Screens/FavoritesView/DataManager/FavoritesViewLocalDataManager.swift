@@ -58,12 +58,12 @@ extension FavoritesViewLocalDataManager: FavoritesViewLocalDataManagerInputProto
     
     func removeFavorite(favorite: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
         
-            guard let movieId32 = Int32(exactly: favorite.movieID) else {
+            guard let movieID32 = Int32(exactly: favorite.movieID) else {
                 failure(.overflowInt32)
                 return
             }
             
-            let predicate = NSPredicate(format: "%K = %@", #keyPath(CDFavorite.id), NSNumber(value: movieId32))
+            let predicate = NSPredicate(format: "%K = %@", #keyPath(CDFavorite.id), NSNumber(value: movieID32))
             fetchRequest.predicate = predicate
             do {
                 let moviesFetched = try managedObjectContext.fetch(fetchRequest)

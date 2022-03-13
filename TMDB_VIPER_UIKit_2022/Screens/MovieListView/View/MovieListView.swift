@@ -177,9 +177,9 @@ extension MovieListView: UITableViewDelegate {
         let row = indexPath.row
         let movies = getMoviesOrFilteredMovies()
         let item = movies[row]
-        let movieId = item.movieID
+        let movieID = item.movieID
         
-        presenter?.goToDetailView(movieId: movieId)
+        presenter?.goToDetailView(movieID: movieID)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

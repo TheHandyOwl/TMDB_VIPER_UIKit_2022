@@ -13,7 +13,7 @@ import UIKit
 // MARK: protocol MovieDetailWireFrameProtocol
 protocol MovieDetailWireFrameProtocol: AnyObject {
     // PRESENTER -> WIREFRAME
-    static func createMovieDetailModule(movieId: String) -> UIViewController
+    static func createMovieDetailModule(movieID: Int) -> UIViewController
 }
 
 
@@ -24,7 +24,7 @@ class MovieDetailWireFrame: MovieDetailWireFrameProtocol {
         return MovieDetailView(nibName: Constants.Views.MovieDetail.nibName, bundle: Bundle.main)
     }
     
-    class func createMovieDetailModule(movieId: String) -> UIViewController {
+    class func createMovieDetailModule(movieID: Int) -> UIViewController {
 
         if let view = mainView as? MovieDetailView {
             let presenter: MovieDetailPresenterProtocol & MovieDetailInteractorOutputProtocol = MovieDetailPresenter()
@@ -42,7 +42,7 @@ class MovieDetailWireFrame: MovieDetailWireFrameProtocol {
             interactor.remoteDatamanager = remoteDataManager
             //remoteDataManager.remoteRequestHandler = interactor
             
-            presenter.movieId = movieId
+            presenter.movieID = movieID
             
             return view
         }

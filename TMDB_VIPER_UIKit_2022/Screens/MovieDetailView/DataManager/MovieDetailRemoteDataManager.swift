@@ -14,7 +14,7 @@ protocol MovieDetailRemoteDataManagerInputProtocol: AnyObject {
     // INTERACTOR -> REMOTEDATAMANAGER
     //var remoteRequestHandler: MovieDetailRemoteDataManagerOutputProtocol? { get set }
     
-    func getMovie(movieID: String, success: @escaping ((MovieDetailResponse) -> ()), failure: @escaping ((NetworkErrors) -> ()))
+    func getMovie(movieID: Int, success: @escaping ((MovieDetailResponse) -> ()), failure: @escaping ((NetworkErrors) -> ()))
 }
 
 
@@ -23,7 +23,7 @@ class MovieDetailRemoteDataManager:MovieDetailRemoteDataManagerInputProtocol {
     
     //var remoteRequestHandler: MovieDetailRemoteDataManagerOutputProtocol?
 
-    func getMovie(movieID: String, success: @escaping ((MovieDetailResponse) -> ()), failure: @escaping ((NetworkErrors) -> ())) {
+    func getMovie(movieID: Int, success: @escaping ((MovieDetailResponse) -> ()), failure: @escaping ((NetworkErrors) -> ())) {
         
         let urlString = "\(Constants.API.URL.urlMainSite)\(Constants.API.Endpoints.urlEndpointDetailMovie)\(movieID)\(Constants.API.apiKeyParam)\(Constants.API.apiKeyValue)"
         //print("URL - getMovie: \(urlString)")

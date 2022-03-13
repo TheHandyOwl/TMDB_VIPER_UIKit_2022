@@ -15,7 +15,7 @@ protocol MovieListWireFrameProtocol: AnyObject {
     // PRESENTER -> WIREFRAME
     static func createMovieListModule() -> UIViewController
     
-    func goToDetailView(view: MovieListViewProtocol, movieId: String)
+    func goToDetailView(view: MovieListViewProtocol, movieID: Int)
 }
 
 
@@ -54,11 +54,11 @@ class MovieListWireFrame: MovieListWireFrameProtocol {
         return UIViewController()
     }
     
-    func goToDetailView(view: MovieListViewProtocol, movieId: String) {
+    func goToDetailView(view: MovieListViewProtocol, movieID: Int) {
         guard let baseView = view as? UIViewController else { return }
         
         DispatchQueue.main.async {
-            let vc = MovieDetailWireFrame.createMovieDetailModule(movieId: movieId)
+            let vc = MovieDetailWireFrame.createMovieDetailModule(movieID: movieID)
             baseView.navigationController?.pushViewController(vc, animated: true)
         }
     }
