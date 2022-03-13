@@ -51,7 +51,7 @@ class MovieListInteractor {
     
     private func mapMoviesResponseToMovies(moviesResponse: [MovieResponse]) -> [Movie] {
         let movies = moviesResponse.map {
-            Movie(movieID: $0.id, title: $0.title, synopsis: $0.overview, image: $0.posterPath)
+            Movie(movieID: $0.id, title: $0.title, synopsis: $0.synopsis, image: $0.posterPath)
         }
         return movies
     }

@@ -41,7 +41,7 @@ class MovieDetailInteractor: MovieDetailInteractorInputProtocol {
             originalTitle: movieDetailResponse.originalTitle,
             rating: String(movieDetailResponse.voteAverage),
             releaseDate: movieDetailResponse.releaseDate,
-            synopsis: movieDetailResponse.overview,
+            synopsis: movieDetailResponse.synopsis,
             title: movieDetailResponse.title)
         return movieDetail
     }
