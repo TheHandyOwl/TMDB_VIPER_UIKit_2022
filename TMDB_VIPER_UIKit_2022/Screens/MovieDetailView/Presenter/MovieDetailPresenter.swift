@@ -67,5 +67,4 @@ extension MovieDetailPresenter: MovieDetailPresenterProtocol {
 
 // MARK: - MovieDetailInteractorOutputProtocol
 extension MovieDetailPresenter: MovieDetailInteractorOutputProtocol {
-    // TODO: implement interactor output methods
 }

@@ -15,12 +15,14 @@ struct Movie: Codable {
     let title: String
     let synopsis: String
     let image: String
+    var favorite: Bool
     
-    init(movieID: Int, title: String, synopsis: String, image: String) {
+    init(movieID: Int, title: String, synopsis: String, image: String, favorite: Bool = false) {
         self.movieID = movieID
         self.title = title
         self.synopsis = synopsis
         self.image = image
+        self.favorite = favorite
     }
     
 }

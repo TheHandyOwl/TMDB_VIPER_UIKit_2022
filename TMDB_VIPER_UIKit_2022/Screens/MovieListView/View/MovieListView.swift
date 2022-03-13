@@ -17,7 +17,8 @@ protocol MovieListViewProtocol: AnyObject {
     // PRESENTER -> VIEW
     var presenter: MovieListPresenterProtocol? { get set }
     
-    func refreshList(movies: [Movie])
+    func addMoviesAndRefreshList(movies: [Movie])
+    func refreshFavorites(movies: [Movie], filteredMovies: [Movie])
     func setupUI(viewTitle: String)
     func startActivity()
     func stopActivity()
@@ -53,18 +54,15 @@ final class MovieListView: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        presenter?.viewWillAppear() { movies, searchString in
-            if searchString != "" {
-                searchController.isActive = true
-                searchController.searchBar.text = searchString
-                filteredMovies = movies
-                reloadTable()
-            }
+        presenter?.viewWillAppear() { movies, filteredMovies, searchString in
+            self.resetSearchBar(searchString: searchString, filteredMovies: filteredMovies)
+            self.movies = movies
+            reloadTable()
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        presenter?.viewWillDisappear(filteredMovies: filteredMovies, filteredString: searchController.searchBar.text ?? "")
+        presenter?.viewWillDisappear(movies: movies, filteredMovies: filteredMovies, filteredString: searchController.searchBar.text ?? "")
         searchController.isActive = false
     }
     
@@ -110,6 +108,14 @@ final class MovieListView: UIViewController {
     private func reloadTable() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+        }
+    }
+    
+    private func resetSearchBar(searchString: String, filteredMovies: [Movie] ) {
+        if searchString != "" {
+            self.searchController.isActive = true
+            self.searchController.searchBar.text = searchString
+            self.filteredMovies = filteredMovies
         }
     }
     
@@ -166,6 +172,7 @@ extension MovieListView: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension MovieListView: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row
         let movies = getMoviesOrFilteredMovies()
@@ -174,15 +181,64 @@ extension MovieListView: UITableViewDelegate {
         
         presenter?.goToDetailView(movieId: movieId)
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let row = indexPath.row
+        let movies = self.getMoviesOrFilteredMovies()
+        let item = movies[row]
+        
+        let handlerContextualAction: UIContextualAction.Handler = { [weak self] (contextualAction, view, completionHandler) in
+            guard let `self` = self, let presenter = self.presenter else {
+                DispatchQueue.main.async {
+                    completionHandler(false)
+                }
+                return
+            }
+            
+            presenter.addOrRemoveFavorite(movie: item) {
+                DispatchQueue.main.async {
+                    completionHandler(true)
+                    DispatchQueue.global().async {
+                        presenter.toggleFavorite(movie: item, movies: self.movies, filteredMovies: self.filteredMovies)
+                    }
+                }
+            } failure: {
+                DispatchQueue.main.async {
+                    completionHandler(false)
+                }
+            }
+
+        }
+        
+        let addFavoriteContextualAction = UIContextualAction(style: .normal, title: Constants.Strings.addFavoriteLiteral.capitalizingFirstLetter(), handler: handlerContextualAction)
+        let removeFavoriteContextualAction = UIContextualAction(style: .destructive, title: Constants.Strings.removeFavoriteLiteral.capitalizingFirstLetter(), handler: handlerContextualAction)
+        let action = item.favorite ? removeFavoriteContextualAction : addFavoriteContextualAction
+        
+        let swipeActions = UISwipeActionsConfiguration(actions: [action])
+        swipeActions.performsFirstActionWithFullSwipe = false
+        
+        return swipeActions
+        
+    }
+    
 }
 
 
 // MARK: - MovieListViewProtocol
 extension MovieListView: MovieListViewProtocol {
     
-    func refreshList(movies: [Movie]) {
+    func addMoviesAndRefreshList(movies: [Movie]) {
         self.movies += movies
         reloadTable()
+    }
+    
+    func refreshFavorites(movies: [Movie], filteredMovies: [Movie]) {
+        DispatchQueue.main.async {
+            self.movies = movies
+            
+            let searchString = self.searchController.searchBar.text ?? ""
+            self.resetSearchBar(searchString: searchString, filteredMovies: filteredMovies)
+        }
     }
     
     func setupUI(viewTitle: String) {
