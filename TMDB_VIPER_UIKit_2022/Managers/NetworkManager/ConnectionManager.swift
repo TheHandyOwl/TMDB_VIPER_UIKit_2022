@@ -11,10 +11,10 @@ import Foundation
 // MARK: - ConnectionManager
 final class ConnectionManager {
     
-    static var shared: ConnectionManager {
+    static var shared: ConnectionManager = {
         let instance = ConnectionManager()
         return instance
-    }
+    }()
     
     func getData(urlRequest: URLRequest, success: @escaping ((Data) -> ()),failure: @escaping ((NetworkErrors) -> ())) {
         

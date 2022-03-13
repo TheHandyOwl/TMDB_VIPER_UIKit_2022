@@ -18,7 +18,7 @@ protocol FavoritesViewPresenterProtocol: AnyObject {
     
     var favoritesData: [Movie] { get }
     
-    func removeFavorite(movieId: Int, success: @escaping () -> (), failure: @escaping() -> ())
+    func removeFavorite(favorite: Movie, success: @escaping () -> (), failure: @escaping() -> ())
     func viewDidLoad()
     func viewWillAppear()
 }
@@ -68,10 +68,10 @@ class FavoritesViewPresenter {
 // MARK: - FavoritesViewPresenterProtocol
 extension FavoritesViewPresenter: FavoritesViewPresenterProtocol {
     
-    func removeFavorite(movieId: Int, success: @escaping () -> (), failure: @escaping () -> ()) {
+    func removeFavorite(favorite: Movie, success: @escaping () -> (), failure: @escaping () -> ()) {
         DispatchQueue.global().async {
-            self.interactor?.removeFavorite(favorite: movieId, success: {
-                self.favorites = self.favorites.filter { $0.movieID != movieId }
+            self.interactor?.removeFavorite(favorite: favorite, success: {
+                self.favorites = self.favorites.filter { $0.movieID != favorite.movieID }
                 success()
             }, failure: { coreDataError in
                 print("\(Constants.Strings.errorLiteral): \(coreDataError.localizedDescription)")

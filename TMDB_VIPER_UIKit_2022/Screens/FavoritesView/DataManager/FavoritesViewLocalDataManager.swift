@@ -14,25 +14,26 @@ import Foundation
 protocol FavoritesViewLocalDataManagerInputProtocol: AnyObject {
     // INTERACTOR -> LOCALDATAMANAGER
     func getFavorites(success: @escaping (([Movie]) -> ()), failure: @escaping ((CoreDataErrors) -> ()))
-    func removeFavorite(favorite: Int, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ()))
+    func removeFavorite(favorite: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ()))
 }
 
 
 // MARK: - FavoritesViewLocalDataManager
 class FavoritesViewLocalDataManager {
     
-    private var fetchRequest: NSFetchRequest<FavoriteMovie> = FavoriteMovie.fetchRequest()
-    private var searchResults: Array<FavoriteMovie> = []
+    private var fetchRequest: NSFetchRequest<CDFavorite> = CDFavorite.fetchRequest()
+    private var searchResults: Array<CDFavorite> = []
     private var managedObjectContext: NSManagedObjectContext = CoreDataManager.shared.persistentContainer.viewContext
     
-    private func mapSearchResultsToMovies(searchResults: [FavoriteMovie]) -> [Movie] {
+    private func mapSearchResultsToMovies(searchResults: [CDFavorite]) -> [Movie] {
         searchResults.compactMap {
             guard let id = Int(exactly: $0.id) else { return nil }
             let image = $0.image ?? "No image"
             let synopsis = $0.synopsis ?? "No synopsis"
             let title = $0.title ?? "No title"
+            let favorite = true
             
-            return Movie(movieID: id, title: title, synopsis: synopsis, image: image)
+            return Movie(movieID: id, title: title, synopsis: synopsis, image: image, favorite: favorite)
         }
     }
     
@@ -55,9 +56,23 @@ extension FavoritesViewLocalDataManager: FavoritesViewLocalDataManagerInputProto
         
     }
     
-    func removeFavorite(favorite: Int, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
-        // TODO: Implement use case methods
-        success()
+    func removeFavorite(favorite: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
+        
+            guard let movieId32 = Int32(exactly: favorite.movieID) else {
+                failure(.overflowInt32)
+                return
+            }
+            
+            let predicate = NSPredicate(format: "%K = %@", #keyPath(CDFavorite.id), NSNumber(value: movieId32))
+            fetchRequest.predicate = predicate
+            do {
+                let moviesFetched = try managedObjectContext.fetch(fetchRequest)
+                _ = moviesFetched.map { managedObjectContext.delete($0) }
+                success()
+            } catch {
+                failure(.removeFavoriteMovie)
+            }
+        
     }
     
 }

@@ -12,10 +12,10 @@ import Foundation
 // MARK: - CoreDataManager
 final class CoreDataManager {
     
-    static var shared: CoreDataManager {
+    static var shared: CoreDataManager = {
         let instance = CoreDataManager()
         return instance
-    }
+    }()
     
     lazy var persistentContainer: NSPersistentContainer = {
         
@@ -34,6 +34,7 @@ final class CoreDataManager {
     }()
     
     func saveContext() throws {
+        
         let context = persistentContainer.viewContext
         
         if context.hasChanges {

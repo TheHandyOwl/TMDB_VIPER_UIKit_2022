@@ -56,6 +56,25 @@ class MovieListInteractor {
         return movies
     }
     
+    private func mapMoviesWithFavoriteTag(moviesNotTagged: [Movie]) -> [Movie] {
+        guard let favoriteMovies = localDatamanager?.getFavoriteMovies() else {
+            return moviesNotTagged
+        }
+        
+        let moviesTagged = moviesNotTagged.map { movie -> Movie in
+            let favorite = favoriteMovies.filter { $0.movieID == movie.movieID }.count > 0 ? true : false
+
+            if favorite {
+                let newMovie = Movie(movieID: movie.movieID, title: movie.title, synopsis: movie.synopsis, image: movie.image, favorite: favorite)
+                return newMovie
+            }
+            
+            return movie
+        }
+        
+        return moviesTagged
+    }
+    
 }
 
 
@@ -69,8 +88,12 @@ extension MovieListInteractor: MovieListInteractorInputProtocol {
     func getPopularMovies(success: @escaping (([Movie]) -> ()), failure: @escaping ((NetworkErrors) -> ())) {
         //mockDatamanager?.getPopularMovies(success: success, failure: failure)
         remoteDatamanager?.getPopularMovies(success: { [weak self] moviesResponse in
-            if let movies = self?.mapMoviesResponseToMovies(moviesResponse: moviesResponse) {
-                success(movies)
+            if let moviesWithoutFavoriteTag = self?.mapMoviesResponseToMovies(moviesResponse: moviesResponse) {
+                if let moviesWithFavoriteTag = self?.mapMoviesWithFavoriteTag(moviesNotTagged: moviesWithoutFavoriteTag) {
+                    success(moviesWithFavoriteTag)
+                } else {
+                    failure(.mappingError)
+                }
             } else {
                 failure(.mappingError)
             }

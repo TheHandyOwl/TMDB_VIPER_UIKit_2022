@@ -95,9 +95,8 @@ extension FavoritesView: UITableViewDelegate {
             
             let row = indexPath.row
             let item = presenter.favoritesData[row]
-            let movieId = item.movieID
             
-            presenter.removeFavorite(movieId: movieId) {
+            presenter.removeFavorite(favorite: item) {
                 DispatchQueue.main.async {
                     self?.tableView.deleteRows(at: [indexPath], with: .fade)
                     completionHandler(true)

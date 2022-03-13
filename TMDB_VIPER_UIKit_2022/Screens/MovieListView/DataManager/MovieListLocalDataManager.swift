@@ -14,23 +14,24 @@ import Foundation
 protocol MovieListLocalDataManagerInputProtocol: AnyObject {
     // INTERACTOR -> LOCALDATAMANAGER
     func addOrRemoveFavorite(movie: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ()))
+    func existsMovie(movie: Movie, success: @escaping ((Bool) -> ()), failure: @escaping ((CoreDataErrors) -> ()))
+    func getFavoriteMovies() -> [Movie]?
 }
 
 
-// MARK: - MovieListLocalDataManagerInputProtocol
-class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
+// MARK: - MovieListLocalDataManager
+class MovieListLocalDataManager {
     
-    private var fetchRequest: NSFetchRequest<FavoriteMovie> = FavoriteMovie.fetchRequest()
+    private var fetchRequest: NSFetchRequest<CDFavorite> = CDFavorite.fetchRequest()
     private var managedObjectContext: NSManagedObjectContext = CoreDataManager.shared.persistentContainer.viewContext
     
-    func addOrRemoveFavorite(movie: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
-                
+    private func addMovie(movie: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
         guard let movieId32 = Int32(exactly: movie.movieID) else {
             failure(.overflowInt32)
             return
         }
         
-        let newMovie = NSEntityDescription.insertNewObject(forEntityName: Constants.Managers.CoreData.favoriteMovieEntityName, into: managedObjectContext) as! FavoriteMovie
+        let newMovie = NSEntityDescription.insertNewObject(forEntityName: Constants.Managers.CoreData.favoriteMovieEntityName, into: managedObjectContext) as! CDFavorite
         
         newMovie.id = movieId32
         newMovie.image = movie.image
@@ -49,7 +50,77 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
         } catch {
             failure(.insertFavoriteMovie)
         }
-             
+    }
+    
+    private func removeMovie(movie: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
+        guard let movieId32 = Int32(exactly: movie.movieID) else {
+            failure(.overflowInt32)
+            return
+        }
+        
+        let predicate = NSPredicate(format: "%K = %@", #keyPath(CDFavorite.id), NSNumber(value: movieId32))
+        fetchRequest.predicate = predicate
+        do {
+            let moviesFetched = try managedObjectContext.fetch(fetchRequest)
+            _ = moviesFetched.map { managedObjectContext.delete($0) }
+            success()
+        } catch {
+            failure(.removeFavoriteMovie)
+        }
+    }
+    
+}
+
+
+// MARK: - MovieListLocalDataManagerInputProtocol
+extension MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
+    
+    func addOrRemoveFavorite(movie: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
+        if movie.favorite {
+            removeMovie(movie: movie, success: success, failure: failure)
+        } else {
+            addMovie(movie: movie, success: success, failure: failure)
+        }
+    }
+    
+    func existsMovie(movie: Movie, success: @escaping ((Bool) -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
+        
+            guard let movieId32 = Int32(exactly: movie.movieID) else {
+                failure(.overflowInt32)
+                return
+            }
+            
+            let predicate = NSPredicate(format: "%K = %@", #keyPath(CDFavorite.id), NSNumber(value: movieId32))
+            fetchRequest.predicate = predicate
+            do {
+                let moviesFetched = try managedObjectContext.fetch(fetchRequest)
+                let exists = moviesFetched.count > 0 ? true : false
+                success(exists)
+            } catch {
+                failure(.searchError)
+            }
+        
+    }
+    
+    func getFavoriteMovies() -> [Movie]? {
+        
+            do {
+                let moviesFetched = try managedObjectContext.fetch(fetchRequest)
+                let favoriteMovies = moviesFetched.compactMap { movie -> Movie? in
+                    guard let id = Int(exactly: movie.id) else { return nil }
+                    let image = movie.image ?? "No image"
+                    let synopsis = movie.synopsis ?? "No synopsis"
+                    let title = movie.title ?? "No title"
+                    let favorite = true
+                    
+                    return Movie(movieID: id, title: title, synopsis: synopsis, image: image, favorite: favorite)
+                }
+                return favoriteMovies
+            } catch let error {
+                print("\(Constants.Strings.errorLiteral):\(error.localizedDescription)")
+                return nil
+            }
+        
     }
     
 }

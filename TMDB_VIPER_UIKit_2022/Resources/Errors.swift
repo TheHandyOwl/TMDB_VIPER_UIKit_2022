@@ -14,8 +14,9 @@ enum CoreDataErrors: Error {
     case fetchingRequest
     case insertFavoriteMovie
     case noManagedObjectContext
-    case removeFavoriteMovie
     case overflowInt32
+    case removeFavoriteMovie
+    case searchError
     case unknownError
 }
 

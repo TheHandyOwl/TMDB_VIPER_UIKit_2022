@@ -43,7 +43,7 @@ struct Constants {
     struct Managers {
         
         struct CoreData {
-            static let favoriteMovieEntityName = "FavoriteMovie"
+            static let favoriteMovieEntityName = "CDFavorite"
             static let favoritesPersistentContainer = "MoviesCoreData"
         }
         
