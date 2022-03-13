@@ -15,9 +15,18 @@ protocol MovieDetailViewProtocol: AnyObject {
     // PRESENTER -> VIEW
     var presenter: MovieDetailPresenterProtocol? { get set }
     
+    /// Setup movie data
+    /// - Parameter movieDetail: movie data
     func setupMovie(movieDetail: MovieDetail)
+    
+    /// Setup interface
+    /// - Parameter withTitle: title view
     func setupUI(withTitle: String)
+    
+    /// Enable flag. Task begins
     func startActivity()
+    
+    /// Disable flag. Task finished
     func stopActivity()
 }
 

@@ -30,11 +30,16 @@ final class MovieListCellView: UITableViewCell {
         synopsisLabel.text = ""
     }
     
-    func configureCell(movieTitle: String, movieSinopsis: String, image: String) {
+    /// Setup cell view with this data
+    /// - Parameters:
+    ///   - movieTitle: movie title
+    ///   - movieSynopsis: movie synopsis
+    ///   - image: string to retrieve an image. UIImage extension used to retrieve the UIImage
+    func configureCell(movieTitle: String, movieSynopsis: String, image: String) {
         cleanCell()
         
         titleLabel.text = movieTitle
-        synopsisLabel.text = movieSinopsis
+        synopsisLabel.text = movieSynopsis
         
         if let placeholderImage = UIImage(systemName: Constants.Views.MovieList.MovieCell.placeholderImage) {
             movieImage.getImage(sufixUrl: image, placeHolderImage: placeholderImage)

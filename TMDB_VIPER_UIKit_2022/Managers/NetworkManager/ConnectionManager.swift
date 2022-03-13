@@ -11,11 +11,17 @@ import Foundation
 // MARK: - ConnectionManager
 final class ConnectionManager {
     
+    /// Singleton pattern
     static var shared: ConnectionManager = {
         let instance = ConnectionManager()
         return instance
     }()
     
+    /// Receive the link and returns the raw data
+    /// - Parameters:
+    ///   - urlRequest: complete URL
+    ///   - success: success handler. Returns the data obtained
+    ///   - failure: failure handler. Returns the error obtained
     func getData(urlRequest: URLRequest, success: @escaping ((Data) -> ()),failure: @escaping ((NetworkErrors) -> ())) {
         
         let session = URLSession.shared
@@ -62,6 +68,11 @@ final class ConnectionManager {
         
     }
     
+    /// Receive the link and returns ONLY an image
+    /// - Warning: simple images that you can skip
+    /// - Parameters:
+    ///   - urlRequest: complete URL
+    ///   - success: success handler. Returns the data obtained
     func getJustAnImage(urlRequest: URLRequest, success: @escaping ((Data) -> ())) {
         URLSession.shared.dataTask(with: urlRequest) { imageData, _, _ in
             guard let imageData = imageData else { return }

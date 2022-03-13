@@ -13,6 +13,11 @@ import Foundation
 // MARK: - protocol MovieListLocalDataManagerInputProtocol
 protocol MovieListLocalDataManagerInputProtocol: AnyObject {
     // INTERACTOR -> LOCALDATAMANAGER
+    
+    /// Get favorite movies stored locally
+    /// - Parameters:
+    ///   - success: success handler with movies. Local storage
+    ///   - failure: failure handler with network error
     func getFavoriteMovies() -> [Movie]?
 }
 

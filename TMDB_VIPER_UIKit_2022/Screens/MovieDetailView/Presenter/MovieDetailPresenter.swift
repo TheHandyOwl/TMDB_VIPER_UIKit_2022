@@ -12,14 +12,21 @@ import Foundation
 // MARK: - protocol MovieDetailPresenterProtocol
 protocol MovieDetailPresenterProtocol: AnyObject {
     // VIEW -> PRESENTER
+    
     var view: MovieDetailViewProtocol? { get set }
     var interactor: MovieDetailInteractorInputProtocol? { get set }
     var wireFrame: MovieDetailWireFrameProtocol? { get set }
     
     var movieID: Int? { get set }
     
+    /// Add or remove movie locally
+    /// - Parameter state: switch state, true to add or false to remove
     func addOrRemoveFavorite(state: Bool)
+    
+    /// View lifecylcle
     func viewDidLoad()
+    
+    /// View lifecylcle
     func viewWillAppear()
 }
 

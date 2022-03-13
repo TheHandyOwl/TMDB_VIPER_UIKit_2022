@@ -13,6 +13,11 @@ import UIKit
 // MARK: protocol MovieDetailWireFrameProtocol
 protocol MovieDetailWireFrameProtocol: AnyObject {
     // PRESENTER -> WIREFRAME
+    
+    /// This is the WireFrame for MovieDetail screen
+    ///
+    /// - Returns: UIViewController with VIPER elements configured
+    /// - Parameter movieID: identifier needed
     static func createMovieDetailModule(movieID: Int) -> UIViewController
 }
 

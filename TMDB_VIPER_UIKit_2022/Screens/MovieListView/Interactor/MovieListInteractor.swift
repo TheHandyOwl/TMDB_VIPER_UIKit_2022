@@ -12,11 +12,16 @@ import Foundation
 // MARK: - InteractorInputProtocol
 protocol MovieListInteractorInputProtocol: AnyObject {
     // PRESENTER -> INTERACTOR
+    
     var presenter: MovieListInteractorOutputProtocol? { get set }
     var localDatamanager: MovieListLocalDataManagerInputProtocol? { get set }
     var mockDatamanager: MovieListMockDataManagerInputProtocol? { get set }
     var remoteDatamanager: MovieListRemoteDataManagerInputProtocol? { get set }
     
+    /// Get popular movies
+    /// - Parameters:
+    ///   - success: success handler with movies. Local storage
+    ///   - failure: failure handler with network error
     func getPopularMovies(success: @escaping (([Movie]) -> ()), failure: @escaping ((NetworkErrors) -> ()))
 }
 

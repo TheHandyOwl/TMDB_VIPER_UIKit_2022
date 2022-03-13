@@ -13,8 +13,15 @@ import UIKit
 // MARK: - protocol MovieListWireFrameProtocol
 protocol MovieListWireFrameProtocol: AnyObject {
     // PRESENTER -> WIREFRAME
-    static func createMovieListModule() -> UIViewController
     
+    /// This is the WireFrame for MovieList screen
+    /// - Returns: UIViewController with configured VIPER elements embedded in UINavigationController
+    static func createMovieListModule() -> UINavigationController
+    
+    /// Here you can go to the screen that shows details of a movie
+    /// - Parameters:
+    ///   - view: view protocol to push a new controller
+    ///   - movieID: identifier needed
     func goToDetailView(view: MovieListViewProtocol, movieID: Int)
 }
 
@@ -26,7 +33,7 @@ final class MovieListWireFrame: MovieListWireFrameProtocol {
         return MovieListView(nibName: Constants.Views.MovieList.nibName, bundle: Bundle.main)
     }
     
-    final class func createMovieListModule() -> UIViewController {
+    final class func createMovieListModule() -> UINavigationController {
         
         let navController = UINavigationController(rootViewController: mainView)
 
@@ -51,7 +58,7 @@ final class MovieListWireFrame: MovieListWireFrameProtocol {
             return navController
         }
         
-        return UIViewController()
+        return UINavigationController()
     }
     
     func goToDetailView(view: MovieListViewProtocol, movieID: Int) {

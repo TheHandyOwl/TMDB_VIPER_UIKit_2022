@@ -12,11 +12,24 @@ import Foundation
 // MARK: - protocol MovieDetailInteractorInputProtocol
 protocol MovieDetailInteractorInputProtocol: AnyObject {
     // PRESENTER -> INTERACTOR
+    
     var presenter: MovieDetailInteractorOutputProtocol? { get set }
     var localDatamanager: MovieDetailLocalDataManagerInputProtocol? { get set }
     var remoteDatamanager: MovieDetailRemoteDataManagerInputProtocol? { get set }
     
+    /// Add or remove movie locally
+    /// - Parameters:
+    ///   - state: switch state, true to add or false to remove
+    ///   - movieDetail: movie data to store
+    ///   - success: success handler
+    ///   - failure: failure handler
     func addOrRemoveFavorite(state: Bool, movieDetail: MovieDetail, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ()))
+    
+    /// Get movie from network
+    /// - Parameters:
+    ///   - movieDetail: movie data to store
+    ///   - success: success handler
+    ///   - failure: failure handler
     func getMovie(movieID: Int, success: @escaping ((MovieDetail) -> ()), failure: @escaping ((NetworkErrors) -> ()))
 }
 

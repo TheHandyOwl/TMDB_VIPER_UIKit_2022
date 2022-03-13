@@ -13,8 +13,15 @@ import UIKit
 // MARK: - protocol FavoritesViewWireFrameProtocol
 protocol FavoritesViewWireFrameProtocol: AnyObject {
     // PRESENTER -> WIREFRAME
-    static func createFavoritesViewModule() -> UIViewController
     
+    /// This is the WireFrame for Favorites screen
+    /// - Returns: UIViewController with configured VIPER elements embedded in UINavigationController
+    static func createFavoritesViewModule() -> UINavigationController
+    
+    /// Here you can go to DetailView, that shows details of a movie
+    /// - Parameters:
+    ///   - view: view protocol to push a new controller
+    ///   - movieID: identifier needed in  detail view
     func goToDetailView(view: FavoritesViewProtocol, movieID: Int)
 }
 
@@ -26,7 +33,7 @@ final class FavoritesViewWireFrame: FavoritesViewWireFrameProtocol {
         return FavoritesView(nibName: Constants.Views.Favorites.nibName, bundle: Bundle.main)
     }
     
-    final class func createFavoritesViewModule() -> UIViewController {
+    final class func createFavoritesViewModule() -> UINavigationController {
 
         let navController = UINavigationController(rootViewController: mainView)
 
@@ -48,7 +55,7 @@ final class FavoritesViewWireFrame: FavoritesViewWireFrameProtocol {
             return navController
         }
         
-        return UIViewController()
+        return UINavigationController()
     }
     
     func goToDetailView(view: FavoritesViewProtocol, movieID: Int) {

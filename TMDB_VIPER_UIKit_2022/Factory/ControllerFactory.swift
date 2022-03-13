@@ -10,11 +10,15 @@ import UIKit
 
 final class ControllerFactory {
     
+    /// Singleton pattern
     static var shared: ControllerFactory = {
         let instance = ControllerFactory()
         return instance
     }()
     
+    /// Search controller to be embeded
+    /// - Parameter placeholderText: hint text to search for something
+    /// - Returns: UISearchController
     func createUISearchController(placeholderText: String) -> UISearchController {
         let controller = UISearchController(searchResultsController: nil)
         

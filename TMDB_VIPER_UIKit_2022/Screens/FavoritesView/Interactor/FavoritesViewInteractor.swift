@@ -16,6 +16,10 @@ protocol FavoritesViewInteractorInputProtocol: AnyObject {
     var localDatamanager: FavoritesViewLocalDataManagerInputProtocol? { get set }
     var remoteDatamanager: FavoritesViewRemoteDataManagerInputProtocol? { get set }
     
+    /// Get favorite movies
+    /// - Parameters:
+    ///   - success: success handler with movies. Local storage
+    ///   - failure: failure handler with network error
     func getFavorites(success: @escaping (([Movie]) -> ()), failure: @escaping ((CoreDataErrors) -> ()))
 }
 

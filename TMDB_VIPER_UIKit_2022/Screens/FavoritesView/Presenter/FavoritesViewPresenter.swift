@@ -12,14 +12,22 @@ import Foundation
 // MARK: - protocol FavoritesViewPresenterProtocol
 protocol FavoritesViewPresenterProtocol: AnyObject {
     // VIEW -> PRESENTER
+    
     var view: FavoritesViewProtocol? { get set }
     var interactor: FavoritesViewInteractorInputProtocol? { get set }
     var wireFrame: FavoritesViewWireFrameProtocol? { get set }
     
     var favoritesData: [Movie] { get }
     
+    /// Here you can go to the screen that shows details of a movie
+    /// - Parameters:
+    ///   - movieID: identifier needed
     func goToDetailView(movieID: Int)
+    
+    /// View lifecycle
     func viewDidLoad()
+    
+    /// View lifecycle
     func viewWillAppear()
 }
 
