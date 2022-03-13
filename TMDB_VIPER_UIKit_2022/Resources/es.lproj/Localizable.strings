@@ -1,0 +1,32 @@
+/* 
+  Localizable.strings
+  TMDB_VIPER_UIKit_2022
+
+  Created by Carlos on 13/3/22.
+  
+*/
+
+
+// MARK: - Generic Strings
+"Strings_AddFavoriteLiteral" = "Añadir favorito";
+"Strings_DeleteLiteral" = "Borrar";
+"Strings_ErrorLiteral" = "Error";
+"Strings_RemoveFavoriteLiteral" = "Borrar favorito";
+
+
+// MARK: - Favorites
+"Favorites_Title" = "Favoritos";
+
+
+// MARK: - Home
+"Home_FirstButtonTitle" = "Películas";
+"Home_SecondButtonTitle" = "Favoritos";
+
+
+// MARK: - MovieDetail
+"MovieDetail_Title" = "Detalle de la película";
+
+
+// MARK: - MovieList
+"MovieList_searchBarPlaceholder" = "Buscar título de película ...";
+"MovieList_Title" = "Películas";
