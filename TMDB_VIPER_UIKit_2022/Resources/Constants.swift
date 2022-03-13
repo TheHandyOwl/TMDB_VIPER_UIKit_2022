@@ -64,7 +64,15 @@ struct Constants {
         
         struct Favorites {
             static let nibName = "FavoritesView"
+            static let placeholderImage = "film.circle"
             static let title = NSLocalizedString("Favorites_Title", comment: "Favorites title")
+            
+            struct FavoritesCell {
+                static let cellID = "FavoritesCellViewID"
+                static let nibName = "FavoritesCellView"
+                static let placeholderImage = "film.circle"
+            }
+            
         }
         
         struct Home {

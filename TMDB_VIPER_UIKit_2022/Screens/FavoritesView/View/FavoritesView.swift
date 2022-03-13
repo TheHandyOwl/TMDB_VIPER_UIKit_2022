@@ -49,6 +49,7 @@ final class FavoritesView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidLoad()
+        registerCell()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +58,12 @@ final class FavoritesView: UIViewController {
     
     
     // MARK: Private methods
+    
+    private func registerCell() {
+        let cellNib = UINib(nibName: Constants.Views.Favorites.FavoritesCell.nibName, bundle: Bundle.main)
+        tableView.register(cellNib, forCellReuseIdentifier: Constants.Views.Favorites.FavoritesCell.cellID)
+    }
+    
     private func reloadTable() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -78,11 +85,14 @@ extension FavoritesView: UITableViewDataSource {
         let favorites = presenter?.favoritesData ?? []
         let item = favorites[row]
         
+        if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Views.Favorites.FavoritesCell.cellID) as? FavoritesCellView {
+            cell.configureCell(image: item.image, movieTitle: item.title)
+            return cell
+        }
+        
         let cell = UITableViewCell()
-        var content = cell.defaultContentConfiguration()
-        content.text = item.title
-        cell.contentConfiguration = content
         return cell
+        
     }
     
 }
