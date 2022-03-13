@@ -19,7 +19,6 @@ protocol FavoritesViewPresenterProtocol: AnyObject {
     var favoritesData: [Movie] { get }
     
     func goToDetailView(movieID: Int)
-    func removeFavorite(favorite: Movie, success: @escaping () -> (), failure: @escaping() -> ())
     func viewDidLoad()
     func viewWillAppear()
 }
@@ -73,18 +72,6 @@ extension FavoritesViewPresenter: FavoritesViewPresenterProtocol {
         guard let view = view else { return }
         
         wireFrame?.goToDetailView(view: view, movieID: movieID)
-    }
-    
-    func removeFavorite(favorite: Movie, success: @escaping () -> (), failure: @escaping () -> ()) {
-        DispatchQueue.global().async {
-            self.interactor?.removeFavorite(favorite: favorite, success: {
-                self.favorites = self.favorites.filter { $0.movieID != favorite.movieID }
-                success()
-            }, failure: { coreDataError in
-                print("\(Constants.Strings.errorLiteral): \(coreDataError.localizedDescription)")
-                failure()
-            })
-        }
     }
     
     func viewDidLoad() {

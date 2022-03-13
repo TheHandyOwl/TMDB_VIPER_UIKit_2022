@@ -37,6 +37,7 @@
 		07CF339427DE06020078DAB1 /* MovieListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CF339627DE06020078DAB1 /* MovieListView.xib */; };
 		07CF339927DE06150078DAB1 /* FavoritesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CF339B27DE06150078DAB1 /* FavoritesView.xib */; };
 		07CF33A027DE079A0078DAB1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07CF33A227DE079A0078DAB1 /* Localizable.strings */; };
+		07CF33A927DE1F670078DAB1 /* ButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CF33A827DE1F670078DAB1 /* ButtonFactory.swift */; };
 		07F05A5C27DB471800A2B90C /* MovieDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F05A5527DB471800A2B90C /* MovieDetailPresenter.swift */; };
 		07F05A5D27DB471800A2B90C /* MovieDetailLocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F05A5627DB471800A2B90C /* MovieDetailLocalDataManager.swift */; };
 		07F05A5F27DB471800A2B90C /* MovieDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F05A5827DB471800A2B90C /* MovieDetailInteractor.swift */; };
@@ -93,6 +94,7 @@
 		07CF33A327DE07A60078DAB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		07CF33A527DE07B80078DAB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MovieDetailView.strings; sourceTree = "<group>"; };
 		07CF33A727DE0EF60078DAB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MovieListCellView.strings; sourceTree = "<group>"; };
+		07CF33A827DE1F670078DAB1 /* ButtonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFactory.swift; sourceTree = "<group>"; };
 		07F05A5527DB471800A2B90C /* MovieDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailPresenter.swift; sourceTree = "<group>"; };
 		07F05A5627DB471800A2B90C /* MovieDetailLocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailLocalDataManager.swift; sourceTree = "<group>"; };
 		07F05A5827DB471800A2B90C /* MovieDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailInteractor.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 		0706ECAA27DA9A3800C7951A /* Factory */ = {
 			isa = PBXGroup;
 			children = (
+				07CF33A827DE1F670078DAB1 /* ButtonFactory.swift */,
 				0706ECAB27DA9A5B00C7951A /* ControllerFactory.swift */,
 			);
 			path = Factory;
@@ -624,6 +627,7 @@
 				0706EC7727DA0B0500C7951A /* Movie.swift in Sources */,
 				07F05A7727DBF08200A2B90C /* FavoritesViewPresenter.swift in Sources */,
 				0706EC6927DA0AA000C7951A /* MovieListPresenter.swift in Sources */,
+				07CF33A927DE1F670078DAB1 /* ButtonFactory.swift in Sources */,
 				0706EC6F27DA0AA000C7951A /* MovieListWireFrame.swift in Sources */,
 				07F05A8727DC006D00A2B90C /* StringExtension.swift in Sources */,
 				07F05A7827DBF08200A2B90C /* FavoritesViewLocalDataManager.swift in Sources */,

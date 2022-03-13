@@ -10,10 +10,10 @@ import UIKit
 
 final class ControllerFactory {
     
-    static var shared: ControllerFactory {
+    static var shared: ControllerFactory = {
         let instance = ControllerFactory()
         return instance
-    }
+    }()
     
     func createUISearchController(placeholderText: String) -> UISearchController {
         let controller = UISearchController(searchResultsController: nil)

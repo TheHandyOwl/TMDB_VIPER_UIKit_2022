@@ -92,36 +92,6 @@ extension FavoritesView: UITableViewDelegate {
         presenter?.goToDetailView(movieID: movieID)
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        let handlerContextualAction: UIContextualAction.Handler = { [weak self] (contextualAction, view, completionHandler) in
-            guard let presenter = self?.presenter else { return }
-            
-            let row = indexPath.row
-            let item = presenter.favoritesData[row]
-            
-            presenter.removeFavorite(favorite: item) {
-                DispatchQueue.main.async {
-                    self?.tableView.deleteRows(at: [indexPath], with: .fade)
-                    completionHandler(true)
-                }
-            } failure: {
-                DispatchQueue.main.async {
-                    completionHandler(false)
-                }
-            }
-
-        }
-        
-        let deleteContextualAction = UIContextualAction(style: .destructive, title: Constants.Strings.deleteLiteral.capitalizingFirstLetter(), handler: handlerContextualAction)
-        
-        let swipeActions = UISwipeActionsConfiguration(actions: [deleteContextualAction])
-        swipeActions.performsFirstActionWithFullSwipe = false
-        
-        return swipeActions
-        
-    }
-    
 }
 
 

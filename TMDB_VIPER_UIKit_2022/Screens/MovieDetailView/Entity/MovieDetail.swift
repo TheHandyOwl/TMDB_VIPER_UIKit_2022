@@ -13,6 +13,7 @@ struct MovieDetail: Codable {
     
     let movieID: Int
     
+    let favorite: Bool
     let image: String
     let originalTitle: String
     let rating: String
@@ -20,9 +21,10 @@ struct MovieDetail: Codable {
     let synopsis: String
     let title: String
     
-    init(movieID: Int, image: String, originalTitle: String, rating: String, releaseDate: String, synopsis: String, title: String) {
+    init(movieID: Int, image: String, originalTitle: String, rating: String, releaseDate: String, synopsis: String, title: String, favorite: Bool) {
         self.movieID = movieID
         
+        self.favorite = favorite
         self.image = image
         self.originalTitle = originalTitle
         self.rating = rating

@@ -42,7 +42,7 @@ final class MovieDetailView: UIViewController {
 
     // MARK: Properties
     var presenter: MovieDetailPresenterProtocol?
-
+    
     
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -51,6 +51,11 @@ final class MovieDetailView: UIViewController {
         presenter?.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        presenter?.viewWillAppear()
+    }
+    
+    
     private func cleanUI() {
         self.movieDetailImage.image = nil
         self.movieDetailTitleLabel.text = ""
@@ -58,6 +63,17 @@ final class MovieDetailView: UIViewController {
         self.ratingContentLabel.text = ""
         self.releaseDateContentLabel.text = ""
         self.synopsisContentLabel.text = ""
+    }
+    
+    @objc func switchValueDidChange(sender: UISwitch!) {
+        guard let switchValue = sender?.isOn else { return }
+        presenter?.addOrRemoveFavorite(state: switchValue)
+    }
+    
+    private func setupFavoriteBarButton(defaultValue: Bool) {
+        let barButtonItem = ButtonFactory.shared.createToggleUIBarButtonItem(defaultValue: defaultValue, tintColor: .systemGreen, target: self, action: #selector(switchValueDidChange(sender:)))
+        
+        self.navigationItem.rightBarButtonItem = barButtonItem
     }
     
 }
@@ -76,6 +92,7 @@ extension MovieDetailView: MovieDetailViewProtocol {
             self.ratingContentLabel.text = movieDetail.rating
             self.releaseDateContentLabel.text = movieDetail.releaseDate
             self.synopsisContentLabel.text = movieDetail.synopsis
+            self.setupFavoriteBarButton(defaultValue: movieDetail.favorite)
         }
     }
     
