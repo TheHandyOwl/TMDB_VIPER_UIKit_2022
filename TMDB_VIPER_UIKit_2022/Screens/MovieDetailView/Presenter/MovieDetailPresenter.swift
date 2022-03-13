@@ -16,9 +16,11 @@ protocol MovieDetailPresenterProtocol: AnyObject {
     var interactor: MovieDetailInteractorInputProtocol? { get set }
     var wireFrame: MovieDetailWireFrameProtocol? { get set }
     
-    var movieId: String { get set }
+    var movieID: Int? { get set }
     
+    func addOrRemoveFavorite(state: Bool)
     func viewDidLoad()
+    func viewWillAppear()
 }
 
 
@@ -28,18 +30,21 @@ protocol MovieDetailInteractorOutputProtocol: AnyObject {
 }
 
 // MARK: - MovieDetailPresenter
-class MovieDetailPresenter  {
+final class MovieDetailPresenter  {
     
     // MARK: Properties
     weak var view: MovieDetailViewProtocol?
     var interactor: MovieDetailInteractorInputProtocol?
     var wireFrame: MovieDetailWireFrameProtocol?
     
-    var movieId: String = ""
+    var movieID: Int?
     
-    private func getMovieDetail(movieID: String) {
+    private var movieDetail: MovieDetail?
+    
+    private func getMovieDetail(movieID: Int) {
         view?.startActivity()
-        interactor?.getMovie(movieID: movieId, success: { [weak self] movieDetail in
+        interactor?.getMovie(movieID: movieID, success: { [weak self] movieDetail in
+            self?.movieDetail = movieDetail
             self?.view?.setupMovie(movieDetail: movieDetail)
             self?.view?.stopActivity()
         }, failure: { [weak self] networkError in
@@ -54,12 +59,30 @@ class MovieDetailPresenter  {
 // MARK: - MovieDetailPresenterProtocol
 extension MovieDetailPresenter: MovieDetailPresenterProtocol {
     
-    // TODO: implement presenter methods
+    func addOrRemoveFavorite(state: Bool) {
+        guard let movieDetail = movieDetail else { return }
+        
+        interactor?.addOrRemoveFavorite(state: state, movieDetail: movieDetail, success: { [weak self] in
+            if let movieID = self?.movieID {
+                self?.getMovieDetail(movieID: movieID)
+            }
+        }, failure: { [weak self] coreDataError in
+            if let movieID = self?.movieID {
+                self?.getMovieDetail(movieID: movieID)
+            }
+        })
+    }
+    
     func viewDidLoad() {
         view?.setupUI(withTitle: Constants.Views.MovieDetail.title)
-        if movieId != "" {
-            getMovieDetail(movieID: movieId)
-        }
+        guard let movieID = movieID else { return }
+        
+        getMovieDetail(movieID: movieID)
+    }
+    
+    func viewWillAppear() {
+        guard let movieID = movieID else { return }
+        getMovieDetail(movieID: movieID)
     }
     
 }
@@ -67,5 +90,4 @@ extension MovieDetailPresenter: MovieDetailPresenterProtocol {
 
 // MARK: - MovieDetailInteractorOutputProtocol
 extension MovieDetailPresenter: MovieDetailInteractorOutputProtocol {
-    // TODO: implement interactor output methods
 }

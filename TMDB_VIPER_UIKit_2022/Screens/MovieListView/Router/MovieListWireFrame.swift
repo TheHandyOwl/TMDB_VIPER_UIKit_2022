@@ -15,18 +15,18 @@ protocol MovieListWireFrameProtocol: AnyObject {
     // PRESENTER -> WIREFRAME
     static func createMovieListModule() -> UIViewController
     
-    func goToDetailView(view: MovieListViewProtocol, movieId: String)
+    func goToDetailView(view: MovieListViewProtocol, movieID: Int)
 }
 
 
 // MARK: - MovieListWireFrameProtocol
-class MovieListWireFrame: MovieListWireFrameProtocol {
+final class MovieListWireFrame: MovieListWireFrameProtocol {
     
     private static var mainView: UIViewController {
         return MovieListView(nibName: Constants.Views.MovieList.nibName, bundle: Bundle.main)
     }
     
-    class func createMovieListModule() -> UIViewController {
+    final class func createMovieListModule() -> UIViewController {
         
         let navController = UINavigationController(rootViewController: mainView)
 
@@ -54,11 +54,11 @@ class MovieListWireFrame: MovieListWireFrameProtocol {
         return UIViewController()
     }
     
-    func goToDetailView(view: MovieListViewProtocol, movieId: String) {
+    func goToDetailView(view: MovieListViewProtocol, movieID: Int) {
         guard let baseView = view as? UIViewController else { return }
         
         DispatchQueue.main.async {
-            let vc = MovieDetailWireFrame.createMovieDetailModule(movieId: movieId)
+            let vc = MovieDetailWireFrame.createMovieDetailModule(movieID: movieID)
             baseView.navigationController?.pushViewController(vc, animated: true)
         }
     }

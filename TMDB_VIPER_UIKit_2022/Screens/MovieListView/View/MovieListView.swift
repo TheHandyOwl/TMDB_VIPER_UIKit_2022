@@ -17,7 +17,8 @@ protocol MovieListViewProtocol: AnyObject {
     // PRESENTER -> VIEW
     var presenter: MovieListPresenterProtocol? { get set }
     
-    func refreshList(movies: [Movie])
+    func addMoviesAndRefreshList(movies: [Movie])
+    func refreshFavorites(movies: [Movie], filteredMovies: [Movie])
     func setupUI(viewTitle: String)
     func startActivity()
     func stopActivity()
@@ -53,18 +54,15 @@ final class MovieListView: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        presenter?.viewWillAppear() { movies, searchString in
-            if searchString != "" {
-                searchController.isActive = true
-                searchController.searchBar.text = searchString
-                filteredMovies = movies
-                reloadTable()
-            }
+        presenter?.viewWillAppear() { movies, filteredMovies, searchString in
+            self.resetSearchBar(searchString: searchString, filteredMovies: filteredMovies)
+            self.movies = movies
+            reloadTable()
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        presenter?.viewWillDisappear(filteredMovies: filteredMovies, filteredString: searchController.searchBar.text ?? "")
+        presenter?.viewWillDisappear(movies: movies, filteredMovies: filteredMovies, filteredString: searchController.searchBar.text ?? "")
         searchController.isActive = false
     }
     
@@ -110,6 +108,14 @@ final class MovieListView: UIViewController {
     private func reloadTable() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+        }
+    }
+    
+    private func resetSearchBar(searchString: String, filteredMovies: [Movie] ) {
+        if searchString != "" {
+            self.searchController.isActive = true
+            self.searchController.searchBar.text = searchString
+            self.filteredMovies = filteredMovies
         }
     }
     
@@ -166,23 +172,34 @@ extension MovieListView: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension MovieListView: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row
         let movies = getMoviesOrFilteredMovies()
         let item = movies[row]
-        let movieId = item.movieID
+        let movieID = item.movieID
         
-        presenter?.goToDetailView(movieId: movieId)
+        presenter?.goToDetailView(movieID: movieID)
     }
+    
 }
 
 
 // MARK: - MovieListViewProtocol
 extension MovieListView: MovieListViewProtocol {
     
-    func refreshList(movies: [Movie]) {
+    func addMoviesAndRefreshList(movies: [Movie]) {
         self.movies += movies
         reloadTable()
+    }
+    
+    func refreshFavorites(movies: [Movie], filteredMovies: [Movie]) {
+        DispatchQueue.main.async {
+            self.movies = movies
+            
+            let searchString = self.searchController.searchBar.text ?? ""
+            self.resetSearchBar(searchString: searchString, filteredMovies: filteredMovies)
+        }
     }
     
     func setupUI(viewTitle: String) {

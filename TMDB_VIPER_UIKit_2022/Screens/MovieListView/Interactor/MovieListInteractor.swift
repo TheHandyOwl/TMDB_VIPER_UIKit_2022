@@ -39,8 +39,8 @@ protocol MovieListRemoteDataManagerOutputProtocol: AnyObject {
 }
 
 
-// MARK: - MovieListInteractorInputProtocol
-class MovieListInteractor: MovieListInteractorInputProtocol {
+// MARK: - MovieListInteractor
+final class MovieListInteractor {
 
     // MARK: Properties
     weak var presenter: MovieListInteractorOutputProtocol?
@@ -50,16 +50,45 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
     
     private func mapMoviesResponseToMovies(moviesResponse: [MovieResponse]) -> [Movie] {
         let movies = moviesResponse.map {
-            Movie(movieID: $0.id, title: $0.title, synopsis: $0.overview, image: $0.posterPath)
+            Movie(movieID: $0.id, title: $0.title, synopsis: $0.synopsis, image: $0.posterPath)
         }
         return movies
     }
     
+    private func mapMoviesWithFavoriteTag(moviesNotTagged: [Movie]) -> [Movie] {
+        guard let favoriteMovies = localDatamanager?.getFavoriteMovies() else {
+            return moviesNotTagged
+        }
+        
+        let moviesTagged = moviesNotTagged.map { movie -> Movie in
+            let favorite = favoriteMovies.filter { $0.movieID == movie.movieID }.count > 0 ? true : false
+
+            if favorite {
+                let newMovie = Movie(movieID: movie.movieID, title: movie.title, synopsis: movie.synopsis, image: movie.image, favorite: favorite)
+                return newMovie
+            }
+            
+            return movie
+        }
+        
+        return moviesTagged
+    }
+    
+}
+
+
+// MARK: - MovieListInteractorInputProtocol
+extension MovieListInteractor: MovieListInteractorInputProtocol {
+    
     func getPopularMovies(success: @escaping (([Movie]) -> ()), failure: @escaping ((NetworkErrors) -> ())) {
         //mockDatamanager?.getPopularMovies(success: success, failure: failure)
         remoteDatamanager?.getPopularMovies(success: { [weak self] moviesResponse in
-            if let movies = self?.mapMoviesResponseToMovies(moviesResponse: moviesResponse) {
-                success(movies)
+            if let moviesWithoutFavoriteTag = self?.mapMoviesResponseToMovies(moviesResponse: moviesResponse) {
+                if let moviesWithFavoriteTag = self?.mapMoviesWithFavoriteTag(moviesNotTagged: moviesWithoutFavoriteTag) {
+                    success(moviesWithFavoriteTag)
+                } else {
+                    failure(.mappingError)
+                }
             } else {
                 failure(.mappingError)
             }
@@ -67,7 +96,7 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
             failure(networkError)
         })
     }
-
+    
 }
 
 

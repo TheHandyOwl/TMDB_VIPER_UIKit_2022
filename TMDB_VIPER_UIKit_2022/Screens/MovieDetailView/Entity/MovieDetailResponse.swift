@@ -17,7 +17,7 @@ struct MovieDetailResponse: Codable {
 //    let genres: [Genre]
     let homepage: String
     let id: Int
-    let imdbID, originalLanguage, originalTitle, overview: String
+    let imdbID, originalLanguage, originalTitle: String
     let popularity: Double
     let posterPath: String
 //    let productionCompanies: [ProductionCompany]
@@ -26,6 +26,7 @@ struct MovieDetailResponse: Codable {
     let revenue, runtime: Int
 //    let spokenLanguages: [SpokenLanguage]
     let status, tagline, title: String
+    let synopsis: String
     let video: Bool
     let voteAverage: Double
     let voteCount: Int
@@ -40,7 +41,7 @@ struct MovieDetailResponse: Codable {
         case imdbID = "imdb_id"
         case originalLanguage = "original_language"
         case originalTitle = "original_title"
-        case overview, popularity
+        case popularity
         case posterPath = "poster_path"
 //        case productionCompanies = "production_companies"
 //        case productionCountries = "production_countries"
@@ -48,6 +49,7 @@ struct MovieDetailResponse: Codable {
         case revenue, runtime
 //        case spokenLanguages = "spoken_languages"
         case status, tagline, title, video
+        case synopsis = "overview"
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }

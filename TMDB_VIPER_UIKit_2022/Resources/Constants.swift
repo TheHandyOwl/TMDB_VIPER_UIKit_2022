@@ -38,20 +38,48 @@ struct Constants {
         
     }
     
+    
+    // MARK: Managers
+    struct Managers {
+        
+        struct CoreData {
+            static let favoriteMovieEntityName = "CDFavorite"
+            static let favoritesPersistentContainer = "MoviesCoreData"
+        }
+        
+    }
+    
+    
     // MARK: Strings
     struct Strings {
-        static let errorLiteral = "Error"
+        static let addFavoriteLiteral = NSLocalizedString("Strings_AddFavoriteLiteral", comment: "Add favorite")
+        static let deleteLiteral = NSLocalizedString("Strings_DeleteLiteral", comment: "Delete")
+        static let errorLiteral = NSLocalizedString("Strings_ErrorLiteral", comment: "Error")
+        static let removeFavoriteLiteral = NSLocalizedString("Strings_RemoveFavoriteLiteral", comment: "Remove favorite")
     }
     
     
     // MARK: Views
     struct Views {
         
+        struct Favorites {
+            static let nibName = "FavoritesView"
+            static let title = NSLocalizedString("Favorites_Title", comment: "Favorites title")
+        }
+        
+        struct Home {
+            static let firstTabBarIcon = "film"
+            static let secondTabBarIcon = "star"
+
+            static let firstTabBarText = NSLocalizedString("Home_FirstButtonTitle", comment: "1st button title")
+            static let secondTabBarText = NSLocalizedString("Home_SecondButtonTitle", comment: "2nd button title")
+        }
+        
         struct MovieList {
             
             static let nibName = "MovieListView"
-            static let searchBarPlaceholder = "Search movie title here..."
-            static let title = "Movies"
+            static let searchBarPlaceholder = NSLocalizedString("MovieList_searchBarPlaceholder", comment: "searchBarPlaceholder")
+            static let title = NSLocalizedString("MovieList_Title", comment: "Title")
             
             struct MovieCell {
                 static let cellID = "MovieListCellViewID"
@@ -65,7 +93,7 @@ struct Constants {
             static let mockID = "634649"
             static let nibName = "MovieDetailView"
             static let placeholderImage = "film.circle"
-            static let title = "Movie detail"
+            static let title = NSLocalizedString("MovieDetail_Title", comment: "Movie detail title")
         }
         
     }

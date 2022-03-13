@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: - MovieListCellView
-class MovieListCellView: UITableViewCell {
+final class MovieListCellView: UITableViewCell {
 
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var titleTagLabel: UILabel!

@@ -17,10 +17,10 @@ protocol MovieListPresenterProtocol: AnyObject {
     var wireFrame: MovieListWireFrameProtocol? { get set }
     
     func getMovies()
-    func goToDetailView(movieId: Int)
+    func goToDetailView(movieID: Int)
     func viewDidLoad()
-    func viewWillAppear(dataHandler: ([Movie], String) -> ())
-    func viewWillDisappear(filteredMovies: [Movie], filteredString: String)
+    func viewWillAppear(dataHandler: ([Movie], [Movie], String) -> ())
+    func viewWillDisappear(movies: [Movie], filteredMovies: [Movie], filteredString: String)
 }
 
 
@@ -31,7 +31,7 @@ protocol MovieListInteractorOutputProtocol: AnyObject {
 
 
 // MARK: - MovieListPresenter
-class MovieListPresenter  {
+final class MovieListPresenter  {
     
     // MARK: Properties
     weak var view: MovieListViewProtocol?
@@ -40,6 +40,7 @@ class MovieListPresenter  {
     
     private var filteredMoviesBackUp = [Movie]()
     private var filteredStringBackUp = ""
+    private var moviesBackUp = [Movie]()
     
 }
 
@@ -52,7 +53,7 @@ extension MovieListPresenter: MovieListPresenterProtocol {
         
         DispatchQueue.global().async {
             self.interactor?.getPopularMovies(success: { [weak self] movies in
-                self?.view?.refreshList(movies: movies)
+                self?.view?.addMoviesAndRefreshList(movies: movies)
                 self?.view?.stopActivity()
             }, failure: { [weak self] networkError in
                 self?.view?.stopActivity()
@@ -65,11 +66,10 @@ extension MovieListPresenter: MovieListPresenterProtocol {
         }
     }
     
-    func goToDetailView(movieId: Int) {
+    func goToDetailView(movieID: Int) {
         guard let view = view else { return }
         
-        let movieIdAsString = String(movieId)
-        wireFrame?.goToDetailView(view: view, movieId: movieIdAsString)
+        wireFrame?.goToDetailView(view: view, movieID: movieID)
     }
     
     func viewDidLoad() {
@@ -79,15 +79,16 @@ extension MovieListPresenter: MovieListPresenterProtocol {
         getMovies()
     }
     
-    func viewWillAppear(dataHandler: ([Movie], String) -> ()) {
-        dataHandler(filteredMoviesBackUp, filteredStringBackUp)
+    func viewWillAppear(dataHandler: ([Movie], [Movie], String) -> ()) {
+        dataHandler(moviesBackUp, filteredMoviesBackUp, filteredStringBackUp)
     }
     
-    func viewWillDisappear(filteredMovies: [Movie], filteredString: String) {
+    func viewWillDisappear(movies: [Movie], filteredMovies: [Movie], filteredString: String) {
+        moviesBackUp = movies
         filteredMoviesBackUp = filteredMovies
         filteredStringBackUp = filteredString
     }
-        
+    
 }
 
 
