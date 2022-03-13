@@ -14,6 +14,8 @@ import UIKit
 protocol FavoritesViewWireFrameProtocol: AnyObject {
     // PRESENTER -> WIREFRAME
     static func createFavoritesViewModule() -> UIViewController
+    
+    func goToDetailView(view: FavoritesViewProtocol, movieID: Int)
 }
 
 
@@ -26,7 +28,9 @@ final class FavoritesViewWireFrame: FavoritesViewWireFrameProtocol {
     
     final class func createFavoritesViewModule() -> UIViewController {
 
-        if let view = mainView as? FavoritesView {
+        let navController = UINavigationController(rootViewController: mainView)
+
+        if let view = navController.children.first as? FavoritesView {
             let presenter: FavoritesViewPresenterProtocol & FavoritesViewInteractorOutputProtocol = FavoritesViewPresenter()
             let interactor: FavoritesViewInteractorInputProtocol & FavoritesViewLocalDataManagerOutputProtocol = FavoritesViewInteractor()
             let localDataManager: FavoritesViewLocalDataManagerInputProtocol = FavoritesViewLocalDataManager()
@@ -41,10 +45,19 @@ final class FavoritesViewWireFrame: FavoritesViewWireFrameProtocol {
             interactor.localDatamanager = localDataManager
             interactor.remoteDatamanager = remoteDataManager
             
-            return view
+            return navController
         }
         
         return UIViewController()
+    }
+    
+    func goToDetailView(view: FavoritesViewProtocol, movieID: Int) {
+        guard let baseView = view as? UIViewController else { return }
+        
+        DispatchQueue.main.async {
+            let vc = MovieDetailWireFrame.createMovieDetailModule(movieID: movieID)
+            baseView.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
 }

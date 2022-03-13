@@ -85,7 +85,11 @@ extension FavoritesView: UITableViewDataSource {
 extension FavoritesView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        let row = indexPath.row
+        let item = favorites[row]
+        let movieID = item.movieID
+        
+        presenter?.goToDetailView(movieID: movieID)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
