@@ -16,7 +16,7 @@ protocol MovieDetailInteractorInputProtocol: AnyObject {
     var localDatamanager: MovieDetailLocalDataManagerInputProtocol? { get set }
     var remoteDatamanager: MovieDetailRemoteDataManagerInputProtocol? { get set }
     
-    func getMovie(movieID: String, success: @escaping ((MovieDetail) -> ()), failure: @escaping ((NetworkErrors) -> ()))
+    func getMovie(movieID: Int, success: @escaping ((MovieDetail) -> ()), failure: @escaping ((NetworkErrors) -> ()))
 }
 
 
@@ -27,7 +27,7 @@ protocol MovieDetailRemoteDataManagerOutputProtocol: AnyObject {
 
 
 // MARK: - MovieDetailInteractorInputProtocol
-class MovieDetailInteractor: MovieDetailInteractorInputProtocol {
+final class MovieDetailInteractor: MovieDetailInteractorInputProtocol {
 
     // MARK: Properties
     weak var presenter: MovieDetailInteractorOutputProtocol?
@@ -41,12 +41,12 @@ class MovieDetailInteractor: MovieDetailInteractorInputProtocol {
             originalTitle: movieDetailResponse.originalTitle,
             rating: String(movieDetailResponse.voteAverage),
             releaseDate: movieDetailResponse.releaseDate,
-            synopsis: movieDetailResponse.overview,
+            synopsis: movieDetailResponse.synopsis,
             title: movieDetailResponse.title)
         return movieDetail
     }
     
-    func getMovie(movieID: String, success: @escaping ((MovieDetail) -> ()), failure: @escaping ((NetworkErrors) -> ())) {
+    func getMovie(movieID: Int, success: @escaping ((MovieDetail) -> ()), failure: @escaping ((NetworkErrors) -> ())) {
         remoteDatamanager?.getMovie(movieID: movieID, success: { [weak self] movieDetailResponse in
             if let movieDetail = self?.mapMovieDetailResponseToMovieDetail(movieDetailResponse: movieDetailResponse) {
                 success(movieDetail)

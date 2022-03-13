@@ -24,7 +24,7 @@ final class FavoritesViewWireFrame: FavoritesViewWireFrameProtocol {
         return FavoritesView(nibName: Constants.Views.Favorites.nibName, bundle: Bundle.main)
     }
     
-    class func createFavoritesViewModule() -> UIViewController {
+    final class func createFavoritesViewModule() -> UIViewController {
 
         if let view = mainView as? FavoritesView {
             let presenter: FavoritesViewPresenterProtocol & FavoritesViewInteractorOutputProtocol = FavoritesViewPresenter()

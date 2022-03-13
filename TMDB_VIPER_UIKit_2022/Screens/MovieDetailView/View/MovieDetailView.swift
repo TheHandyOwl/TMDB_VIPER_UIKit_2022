@@ -23,7 +23,7 @@ protocol MovieDetailViewProtocol: AnyObject {
 
 
 // MARK: - MovieDetailView
-class MovieDetailView: UIViewController {
+final class MovieDetailView: UIViewController {
     
     
     // MARK: Outlets

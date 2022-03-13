@@ -16,5 +16,5 @@ protocol FavoritesViewRemoteDataManagerInputProtocol: AnyObject {
 
 
 // MARK: - FavoritesViewRemoteDataManagerInputProtocol
-class FavoritesViewRemoteDataManager: FavoritesViewRemoteDataManagerInputProtocol {
+final class FavoritesViewRemoteDataManager: FavoritesViewRemoteDataManagerInputProtocol {
 }

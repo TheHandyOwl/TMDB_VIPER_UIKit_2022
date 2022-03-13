@@ -25,7 +25,7 @@ protocol FavoritesViewProtocol: AnyObject {
 
 
 // MARK: - FavoritesView
-class FavoritesView: UIViewController {
+final class FavoritesView: UIViewController {
 
     // MARK: Outlets
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!

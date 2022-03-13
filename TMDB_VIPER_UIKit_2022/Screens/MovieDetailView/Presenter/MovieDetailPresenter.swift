@@ -16,7 +16,7 @@ protocol MovieDetailPresenterProtocol: AnyObject {
     var interactor: MovieDetailInteractorInputProtocol? { get set }
     var wireFrame: MovieDetailWireFrameProtocol? { get set }
     
-    var movieId: String { get set }
+    var movieID: Int? { get set }
     
     func viewDidLoad()
 }
@@ -28,18 +28,18 @@ protocol MovieDetailInteractorOutputProtocol: AnyObject {
 }
 
 // MARK: - MovieDetailPresenter
-class MovieDetailPresenter  {
+final class MovieDetailPresenter  {
     
     // MARK: Properties
     weak var view: MovieDetailViewProtocol?
     var interactor: MovieDetailInteractorInputProtocol?
     var wireFrame: MovieDetailWireFrameProtocol?
     
-    var movieId: String = ""
+    var movieID: Int?
     
-    private func getMovieDetail(movieID: String) {
+    private func getMovieDetail(movieID: Int) {
         view?.startActivity()
-        interactor?.getMovie(movieID: movieId, success: { [weak self] movieDetail in
+        interactor?.getMovie(movieID: movieID, success: { [weak self] movieDetail in
             self?.view?.setupMovie(movieDetail: movieDetail)
             self?.view?.stopActivity()
         }, failure: { [weak self] networkError in
@@ -57,9 +57,9 @@ extension MovieDetailPresenter: MovieDetailPresenterProtocol {
     // TODO: implement presenter methods
     func viewDidLoad() {
         view?.setupUI(withTitle: Constants.Views.MovieDetail.title)
-        if movieId != "" {
-            getMovieDetail(movieID: movieId)
-        }
+        guard let movieID = movieID else { return }
+        
+        getMovieDetail(movieID: movieID)
     }
     
 }

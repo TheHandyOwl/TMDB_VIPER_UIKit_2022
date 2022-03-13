@@ -18,7 +18,7 @@ protocol MovieListPresenterProtocol: AnyObject {
     
     func addOrRemoveFavorite(movie: Movie, success: @escaping (() -> ()), failure: @escaping (() -> ()))
     func getMovies()
-    func goToDetailView(movieId: Int)
+    func goToDetailView(movieID: Int)
     func toggleFavorite(movie: Movie, movies: [Movie], filteredMovies: [Movie])
     func viewDidLoad()
     func viewWillAppear(dataHandler: ([Movie], [Movie], String) -> ())
@@ -33,7 +33,7 @@ protocol MovieListInteractorOutputProtocol: AnyObject {
 
 
 // MARK: - MovieListPresenter
-class MovieListPresenter  {
+final class MovieListPresenter  {
     
     // MARK: Properties
     weak var view: MovieListViewProtocol?
@@ -77,11 +77,10 @@ extension MovieListPresenter: MovieListPresenterProtocol {
         }
     }
     
-    func goToDetailView(movieId: Int) {
+    func goToDetailView(movieID: Int) {
         guard let view = view else { return }
         
-        let movieIdAsString = String(movieId)
-        wireFrame?.goToDetailView(view: view, movieId: movieIdAsString)
+        wireFrame?.goToDetailView(view: view, movieID: movieID)
     }
     
     func toggleFavorite(movie: Movie, movies: [Movie], filteredMovies: [Movie]) {

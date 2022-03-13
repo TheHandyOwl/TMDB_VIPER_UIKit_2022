@@ -23,9 +23,7 @@ final class CoreDataManager {
         
         container.loadPersistentStores { (_ storeDescription, error) in
             if let error = error as Error? {
-                let message = "\(Constants.Strings.errorLiteral): \(error.localizedDescription)"
-                print(message)
-                fatalError(message)
+                print("\(Constants.Strings.errorLiteral): \(error.localizedDescription)")
             }
         }
         
