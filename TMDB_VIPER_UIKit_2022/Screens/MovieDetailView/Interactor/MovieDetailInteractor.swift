@@ -63,5 +63,4 @@ class MovieDetailInteractor: MovieDetailInteractorInputProtocol {
 
 // MARK: - MovieDetailRemoteDataManagerOutputProtocol
 extension MovieDetailInteractor: MovieDetailRemoteDataManagerOutputProtocol {
-    // TODO: Implement use case methods
 }

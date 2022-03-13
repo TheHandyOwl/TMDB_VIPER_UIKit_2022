@@ -93,5 +93,4 @@ extension FavoritesViewPresenter: FavoritesViewPresenterProtocol {
 
 // MARK: - FavoritesViewInteractorOutputProtocol
 extension FavoritesViewPresenter: FavoritesViewInteractorOutputProtocol {
-    // TODO: implement interactor output methods
 }

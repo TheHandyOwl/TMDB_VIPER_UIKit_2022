@@ -54,5 +54,4 @@ class FavoritesViewInteractor: FavoritesViewInteractorInputProtocol {
 
 // MARK: - FavoritesViewLocalDataManagerOutputProtocol
 extension FavoritesViewInteractor: FavoritesViewLocalDataManagerOutputProtocol {
-    // TODO: Implement use case methods
 }
