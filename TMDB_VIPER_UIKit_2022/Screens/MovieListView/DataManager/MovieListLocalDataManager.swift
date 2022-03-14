@@ -14,6 +14,13 @@ import Foundation
 protocol MovieListLocalDataManagerInputProtocol: AnyObject {
     // INTERACTOR -> LOCALDATAMANAGER
     
+    /// Add or remove a movie locally
+    /// - Parameters:
+    ///   - movie: movie data to store
+    ///   - success: success handler
+    ///   - failure: failure handler
+    func addOrRemoveFavorite(movie: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ()))
+    
     /// Get favorite movies stored locally
     /// - Parameters:
     ///   - success: success handler with movies. Local storage
@@ -28,11 +35,64 @@ final class MovieListLocalDataManager {
     private var fetchRequest: NSFetchRequest<CDFavorite> = CDFavorite.fetchRequest()
     private var managedObjectContext: NSManagedObjectContext = CoreDataManager.shared.persistentContainer.viewContext
     
+    private func addMovie(movie: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
+        guard let movieID32 = Int32(exactly: movie.movieID) else {
+            failure(.overflowInt32)
+            return
+        }
+        
+        let newMovie = NSEntityDescription.insertNewObject(forEntityName: Constants.Managers.CoreData.favoriteMovieEntityName, into: managedObjectContext) as! CDFavorite
+        
+        newMovie.id = movieID32
+        newMovie.image = movie.image
+        newMovie.synopsis = movie.synopsis
+        newMovie.title = movie.title
+        
+        do {
+            if managedObjectContext.hasChanges {
+                try managedObjectContext.performAndWait {
+                    try CoreDataManager.shared.saveContext()
+                    success()
+                }
+            } else {
+                failure(.contextWithoutChanges)
+            }
+        } catch {
+            failure(.insertFavoriteMovie)
+        }
+    }
+    
+    private func removeMovie(movie: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
+        guard let movieID32 = Int32(exactly: movie.movieID) else {
+            failure(.overflowInt32)
+            return
+        }
+        
+        let predicate = NSPredicate(format: "%K = %@", #keyPath(CDFavorite.id), NSNumber(value: movieID32))
+        fetchRequest.predicate = predicate
+        do {
+            let moviesFetched = try managedObjectContext.fetch(fetchRequest)
+            _ = moviesFetched.map { managedObjectContext.delete($0) }
+            try CoreDataManager.shared.saveContext()
+            success()
+        } catch {
+            failure(.removeFavoriteMovie)
+        }
+    }
+    
 }
 
 
 // MARK: - MovieListLocalDataManagerInputProtocol
 extension MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
+    
+    func addOrRemoveFavorite(movie: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
+        if movie.favorite {
+            removeMovie(movie: movie, success: success, failure: failure)
+        } else {
+            addMovie(movie: movie, success: success, failure: failure)
+        }
+    }
     
     func getFavoriteMovies() -> [Movie]? {
         
