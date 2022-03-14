@@ -35,11 +35,6 @@ final class MovieDetailLocalDataManager {
     private var fetchRequest: NSFetchRequest<CDFavorite> = CDFavorite.fetchRequest()
     private var managedObjectContext: NSManagedObjectContext = CoreDataManager.shared.persistentContainer.viewContext
     
-    /// <#Description#>
-    /// - Parameters:
-    ///   - movie: <#movie description#>
-    ///   - success: <#success description#>
-    ///   - failure: <#failure description#>
     private func addMovie(movie: MovieDetail, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
         guard let movieID32 = Int32(exactly: movie.movieID) else {
             failure(.overflowInt32)

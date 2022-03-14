@@ -18,6 +18,13 @@ protocol MovieListInteractorInputProtocol: AnyObject {
     var mockDatamanager: MovieListMockDataManagerInputProtocol? { get set }
     var remoteDatamanager: MovieListRemoteDataManagerInputProtocol? { get set }
     
+    /// Add or remove favorite locally
+    /// - Parameters:
+    ///   - movie: movie data to store
+    ///   - success: success handler
+    ///   - failure: failure handler with CoreData Error
+    func addOrRemoveFavorite(movie: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ()))
+
     /// Get popular movies
     /// - Parameters:
     ///   - success: success handler with movies. Local storage
@@ -84,6 +91,10 @@ final class MovieListInteractor {
 
 // MARK: - MovieListInteractorInputProtocol
 extension MovieListInteractor: MovieListInteractorInputProtocol {
+    
+    func addOrRemoveFavorite(movie: Movie, success: @escaping (() -> ()), failure: @escaping ((CoreDataErrors) -> ())) {
+        localDatamanager?.addOrRemoveFavorite(movie: movie, success: success, failure: failure)
+    }
     
     func getPopularMovies(success: @escaping (([Movie]) -> ()), failure: @escaping ((NetworkErrors) -> ())) {
         //mockDatamanager?.getPopularMovies(success: success, failure: failure)

@@ -145,6 +145,13 @@ extension MovieListView: UISearchBarDelegate {
         searchController.isActive = false
         reloadTable()
     }
+    
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        presenter?.viewWillDisappear(movies: movies, filteredMovies: filteredMovies, filteredString: searchController.searchBar.text ?? "")
+        searchController.dismiss(animated: true)
+    }
+    
 }
 
 
@@ -195,6 +202,49 @@ extension MovieListView: UITableViewDelegate {
         let movieID = item.movieID
         
         presenter?.goToDetailView(movieID: movieID)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let row = indexPath.row
+        let movies = self.getMoviesOrFilteredMovies()
+        let item = movies[row]
+        
+        let handlerContextualAction: UIContextualAction.Handler = { [weak self] (contextualAction, view, completionHandler) in
+            guard let `self` = self, let presenter = self.presenter else {
+                DispatchQueue.main.async {
+                    completionHandler(false)
+                }
+                return
+            }
+            
+            presenter.addOrRemoveFavorite(movie: item) {
+                DispatchQueue.main.async {
+                    completionHandler(true)
+                    DispatchQueue.global().async {
+                        presenter.toggleFavorite(movie: item, movies: self.movies, filteredMovies: self.filteredMovies)
+                    }
+                }
+            } failure: {
+                DispatchQueue.main.async {
+                    completionHandler(false)
+                }
+            }
+
+        }
+        
+        let addFavoriteContextualAction = UIContextualAction(style: .normal, title: Constants.Strings.addFavoriteLiteral.capitalizingFirstLetter(), handler: handlerContextualAction)
+        let removeFavoriteContextualAction = UIContextualAction(style: .destructive, title: Constants.Strings.removeFavoriteLiteral.capitalizingFirstLetter(), handler: handlerContextualAction)
+        let action = item.favorite ? removeFavoriteContextualAction : addFavoriteContextualAction
+        
+        let swipeActions = UISwipeActionsConfiguration(actions: [action])
+        swipeActions.performsFirstActionWithFullSwipe = false
+        
+        return swipeActions
+        
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchController.searchBar.endEditing(true)
     }
     
 }
